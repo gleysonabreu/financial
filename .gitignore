@@ -1,0 +1,6 @@
+node_modules/
+.env
+.env.dev
+private-key.pem
+public-key.pem
+coverage/
