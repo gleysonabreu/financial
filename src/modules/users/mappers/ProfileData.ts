@@ -1,3 +1,5 @@
+import { Permission } from '@modules/permissions/entities/Permission';
+
 import { User } from '../entities/User';
 
 interface IResponse {
@@ -6,9 +8,9 @@ interface IResponse {
   lastName: string;
   email: string;
   cpf: string;
-  birthDate: Date;
+  birthDate: string;
   phone: string;
-  permissions: number[];
+  permissions: Permission[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -34,7 +36,7 @@ class ProfileData {
       cpf,
       birthDate,
       phone,
-      permissions: permissions.map(permission => permission.type),
+      permissions,
       createdAt,
       updatedAt,
     };
