@@ -1,3 +1,4 @@
+import { ProfileData } from '@modules/users/mappers/ProfileData';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -16,7 +17,8 @@ class GetAllUserController {
     });
 
     response.header('X-Total-Count', `${totalUsers}`);
-    return response.json(users);
+    const usersView = ProfileData.toManyDTO(users);
+    return response.json(usersView);
   }
 }
 

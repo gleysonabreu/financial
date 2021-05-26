@@ -16,6 +16,10 @@ interface IResponse {
 }
 
 class ProfileData {
+  static toManyDTO(users: User[]): IResponse[] {
+    return users.map(user => this.toDTO(user));
+  }
+
   static toDTO({
     id,
     firstName,
