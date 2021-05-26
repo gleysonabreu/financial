@@ -1,4 +1,5 @@
 import { CreateUserController } from '@modules/users/useCases/createUser/CreateUserController';
+import { GetAllUserController } from '@modules/users/useCases/getAllUser/GetAllUserController';
 import { GetOneUserController } from '@modules/users/useCases/showUserProfile/GetOneUserController';
 import { UpdateUserController } from '@modules/users/useCases/updateUser/UpdateUserController';
 import { Router } from 'express';
@@ -10,6 +11,7 @@ const userRouter = Router();
 const createUserController = new CreateUserController();
 const updateUserController = new UpdateUserController();
 const getOneUserController = new GetOneUserController();
+const getAllUserController = new GetAllUserController();
 
 userRouter.post(
   '/',
@@ -21,6 +23,11 @@ userRouter.get(
   '/:id',
   [ensureAuthenticated, ensurePermission()],
   getOneUserController.execute,
+);
+userRouter.get(
+  '/',
+  [ensureAuthenticated, ensurePermission()],
+  getAllUserController.execute,
 );
 
 export { userRouter };

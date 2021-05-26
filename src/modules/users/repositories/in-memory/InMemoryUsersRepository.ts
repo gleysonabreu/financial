@@ -1,3 +1,5 @@
+import { IGetAllUserDTO } from '@modules/users/useCases/getAllUser/IGetAllUserDTO';
+
 import { User } from '../../entities/User';
 import { ICreateUserDTO } from '../../useCases/createUser/ICreateUserDTO';
 import { IUsersRepository } from '../IUsersRepository';
@@ -37,5 +39,38 @@ export class InMemoryUsersRepository implements IUsersRepository {
     });
     this.users = users;
     return user;
+  }
+
+  async findAll({ cpf, name }: IGetAllUserDTO): Promise<User[]> {
+    if (!cpf && !name) {
+      return this.users;
+    }
+
+    const allUsers = this.users.filter(user => {
+      if (
+        name &&
+        (user.firstName.toLowerCase().includes(name.toLowerCase()) ||
+          user.lastName.toLowerCase().includes(name.toLowerCase())) &&
+        !cpf
+      ) {
+        return user;
+      }
+
+      if (cpf && user.cpf.includes(cpf) && !name) {
+        return user;
+      }
+
+      if (
+        (cpf && user.cpf.includes(cpf)) ||
+        (name &&
+          (user.firstName.toLowerCase().includes(name.toLowerCase()) ||
+            user.lastName.toLowerCase().includes(name.toLowerCase())))
+      ) {
+        return user;
+      }
+
+      return null;
+    });
+    return allUsers;
   }
 }
