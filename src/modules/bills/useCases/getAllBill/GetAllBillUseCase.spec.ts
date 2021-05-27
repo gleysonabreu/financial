@@ -16,6 +16,7 @@ describe('GetOneBillUseCase', () => {
     const bill = await billsRepository.create({
       accountTypeId: '3d687d29-9a0d-4b2b-8012-f151682a661f',
       justification: 'Testing',
+      date: '1998-02-21',
       value: 15,
     });
 
@@ -27,6 +28,7 @@ describe('GetOneBillUseCase', () => {
     const bill = await billsRepository.create({
       accountTypeId: '3d687d29-9a0d-4b2b-8012-f151682a661f',
       justification: 'Testing',
+      date: '1998-02-21',
       value: 15,
     });
 
@@ -40,6 +42,7 @@ describe('GetOneBillUseCase', () => {
     const bill = await billsRepository.create({
       accountTypeId: '3d687d29-9a0d-4b2b-8012-f151682a661f',
       justification: 'Testing',
+      date: '1998-02-21',
       value: 15,
     });
 
@@ -53,12 +56,14 @@ describe('GetOneBillUseCase', () => {
     const bill = await billsRepository.create({
       accountTypeId: '3d687d29-9a0d-4b2b-8012-f151682a661f',
       justification: 'Testing',
+      date: '1998-02-21',
       value: 15,
     });
 
     await billsRepository.create({
       accountTypeId: '3d687d29-9a0d-4b2b-8012-f151682a662f',
       justification: 'Testing',
+      date: '1998-02-21',
       value: 15,
     });
 

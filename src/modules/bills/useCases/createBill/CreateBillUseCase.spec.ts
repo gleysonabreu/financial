@@ -25,6 +25,7 @@ describe('CreateBillUseCase', () => {
       await createBillUseCase.execute({
         accountTypeId: '2daa3f15-e69c-4639-91cd-e187ec6a652f',
         justification: 'Payment people',
+        date: '1998-02-21',
         value: 150,
       });
     }).rejects.toBeInstanceOf(CreateBillError);
@@ -38,6 +39,7 @@ describe('CreateBillUseCase', () => {
     const response = await createBillUseCase.execute({
       accountTypeId: accountType.id,
       justification: 'Payment people',
+      date: '1998-02-21',
       value: 150,
     });
 
@@ -45,6 +47,7 @@ describe('CreateBillUseCase', () => {
       expect.objectContaining({
         accountTypeId: accountType.id,
         justification: 'Payment people',
+        date: '1998-02-21',
         value: 150,
       }),
     );

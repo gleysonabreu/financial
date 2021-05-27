@@ -24,6 +24,7 @@ describe('GetOneBillUseCase', () => {
     const bill = await billsRepository.create({
       accountTypeId: accountType.id,
       justification: 'Test',
+      date: '1998-02-21',
       value: 15,
     });
 

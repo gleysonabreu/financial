@@ -27,6 +27,7 @@ describe('UpdateBillUseCase', () => {
     const bill = await billsRepository.create({
       accountTypeId: accountType.id,
       justification: 'Test',
+      date: '1998-02-21',
       value: 15.5,
     });
 
@@ -42,6 +43,7 @@ describe('UpdateBillUseCase', () => {
         accountTypeId: accountType.id,
         id: bill.id,
         justification: 'Testing update bill',
+        date: '1998-02-21',
         value: 150,
       }),
     );
@@ -54,6 +56,7 @@ describe('UpdateBillUseCase', () => {
     const bill = await billsRepository.create({
       accountTypeId: accountType.id,
       justification: 'Test',
+      date: '1998-02-21',
       value: 15.5,
     });
 

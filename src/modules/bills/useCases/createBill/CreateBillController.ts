@@ -9,6 +9,7 @@ class CreateBillController {
       account_type_id: accountTypeId,
       value,
       justification,
+      date,
     } = request.body;
 
     const createBillUseCase = container.resolve(CreateBillUseCase);
@@ -16,6 +17,7 @@ class CreateBillController {
       accountTypeId,
       justification,
       value,
+      date,
     });
 
     return response.json(bill);
