@@ -1,7 +1,9 @@
+import { Bill } from '@modules/bills/entities/Bill';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -14,6 +16,9 @@ class AccountType {
 
   @Column()
   name: string;
+
+  @OneToMany(() => Bill, bill => bill.accountType)
+  bills: Bill[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
