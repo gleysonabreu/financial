@@ -34,6 +34,8 @@ class BillsRepository implements IBillsRepository {
     skip,
     justification,
     accountTypeId,
+    dateFinish,
+    dateStart,
   }: IGetAllBillDTO): Promise<Bill[]> {
     const billsQuery = await this.repository
       .createQueryBuilder('b')
@@ -50,6 +52,13 @@ class BillsRepository implements IBillsRepository {
     if (justification) {
       billsQuery.andWhere('justification LIKE :justification', {
         justification: `%${justification}%`,
+      });
+    }
+
+    if (dateStart && dateFinish) {
+      billsQuery.andWhere('date BETWEEN :dateStart AND :dateFinish', {
+        dateStart,
+        dateFinish,
       });
     }
 

@@ -10,6 +10,8 @@ class GetAllBillController {
       justification,
       page = 1,
       per_page: perPage,
+      date_start: dateStart,
+      date_finish: dateFinish,
     } = request.query;
 
     const getAllBillUseCase = container.resolve(GetAllBillUseCase);
@@ -18,6 +20,8 @@ class GetAllBillController {
       justification: justification as string,
       page: Number(page),
       perPage: Number(perPage),
+      dateFinish: dateFinish as string,
+      dateStart: dateStart as string,
     });
 
     response.header('X-Total-Count', `${totalBills}`);

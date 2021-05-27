@@ -38,8 +38,10 @@ class InMemoryBills implements IBillsRepository {
   async findAll({
     accountTypeId,
     justification,
+    dateFinish,
+    dateStart,
   }: IGetAllBillDTO): Promise<Bill[]> {
-    if (!accountTypeId && !justification) {
+    if (!accountTypeId && !justification && !dateStart && !dateFinish) {
       return this.bills;
     }
 
@@ -47,7 +49,9 @@ class InMemoryBills implements IBillsRepository {
       if (
         accountTypeId &&
         bill.accountTypeId === accountTypeId &&
-        !justification
+        !justification &&
+        !dateStart &&
+        !dateFinish
       ) {
         return bill;
       }
@@ -57,6 +61,19 @@ class InMemoryBills implements IBillsRepository {
         bill.justification
           .toLocaleLowerCase()
           .includes(justification.toLowerCase()) &&
+        !accountTypeId &&
+        !dateStart &&
+        !dateFinish
+      ) {
+        return bill;
+      }
+
+      if (
+        dateStart &&
+        dateFinish &&
+        new Date(bill.date).getTime() >= new Date(dateStart).getTime() &&
+        new Date(bill.date).getTime() <= new Date(dateFinish).getTime() &&
+        !justification &&
         !accountTypeId
       ) {
         return bill;
