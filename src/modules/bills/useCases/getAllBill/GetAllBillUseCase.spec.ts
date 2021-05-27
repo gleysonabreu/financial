@@ -21,7 +21,7 @@ describe('GetOneBillUseCase', () => {
     });
 
     const { bills } = await getAllBillUseCase.execute({});
-    expect(bills).toEqual(expect.arrayContaining([bill]));
+    expect(bills).toEqual([bill]);
   });
 
   it('should be able to get all bills by account type id', async () => {
@@ -35,7 +35,7 @@ describe('GetOneBillUseCase', () => {
     const { bills } = await getAllBillUseCase.execute({
       accountTypeId: '3d687d29-9a0d-4b2b-8012-f151682a661f',
     });
-    expect(bills).toEqual(expect.arrayContaining([bill]));
+    expect(bills).toEqual([bill]);
   });
 
   it('should be able to get all bills by justification', async () => {
@@ -49,7 +49,7 @@ describe('GetOneBillUseCase', () => {
     const { bills } = await getAllBillUseCase.execute({
       justification: 'ting',
     });
-    expect(bills).toEqual(expect.arrayContaining([bill]));
+    expect(bills).toEqual([bill]);
   });
 
   it('should be able to get all bills by account type id and justification', async () => {
@@ -71,6 +71,6 @@ describe('GetOneBillUseCase', () => {
       justification: 'ting',
       accountTypeId: '3d687d29-9a0d-4b2b-8012-f151682a661f',
     });
-    expect(bills).toEqual(expect.arrayContaining([bill]));
+    expect(bills).toEqual([bill]);
   });
 });
