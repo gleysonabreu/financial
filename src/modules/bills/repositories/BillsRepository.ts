@@ -37,6 +37,7 @@ class BillsRepository implements IBillsRepository {
   }: IGetAllBillDTO): Promise<Bill[]> {
     const billsQuery = await this.repository
       .createQueryBuilder('b')
+      .leftJoinAndSelect('b.accountType', 'accountType')
       .take(take)
       .skip(skip);
 
