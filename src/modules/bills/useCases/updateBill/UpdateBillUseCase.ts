@@ -45,7 +45,7 @@ class UpdateBillUseCase {
       throw new UpdateBillError.AccountTypeNotFound();
     }
 
-    billUpdate.accountTypeId = accountTypeId;
+    billUpdate.accountType = accountType;
     billUpdate.justification = justification;
     billUpdate.value = value;
 
