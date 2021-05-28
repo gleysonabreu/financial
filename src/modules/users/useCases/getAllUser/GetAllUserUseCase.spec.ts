@@ -31,7 +31,7 @@ describe('GetAllUserUseCase', () => {
     });
 
     const { users } = await getAllUserUseCase.execute({});
-    expect(users).toEqual(expect.arrayContaining([user]));
+    expect(users).toEqual([user]);
   });
 
   it('should be able to get all users by first name', async () => {
@@ -53,7 +53,7 @@ describe('GetAllUserUseCase', () => {
     const { users } = await getAllUserUseCase.execute({
       name: 'ting',
     });
-    expect(users).toEqual(expect.arrayContaining([user]));
+    expect(users).toEqual([user]);
   });
 
   it('should be able to get all users by last name', async () => {
@@ -75,7 +75,7 @@ describe('GetAllUserUseCase', () => {
     const { users } = await getAllUserUseCase.execute({
       name: 'goo',
     });
-    expect(users).toEqual(expect.arrayContaining([user]));
+    expect(users).toEqual([user]);
   });
 
   it('should be able to get all users by cpf', async () => {
@@ -97,7 +97,7 @@ describe('GetAllUserUseCase', () => {
     const { users } = await getAllUserUseCase.execute({
       cpf: '00',
     });
-    expect(users).toEqual(expect.arrayContaining([user]));
+    expect(users).toEqual([user]);
   });
 
   it('should be able to get all users by cpf and first/last name', async () => {
@@ -135,6 +135,6 @@ describe('GetAllUserUseCase', () => {
       name: 'goo',
       cpf: '111',
     });
-    expect(users).toEqual(expect.arrayContaining([user, user2]));
+    expect(users).toEqual([user, user2]);
   });
 });
