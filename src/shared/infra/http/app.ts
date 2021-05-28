@@ -1,12 +1,12 @@
 import 'reflect-metadata';
 import 'express-async-errors';
-import '../../container';
 import cors from 'cors';
 import express from 'express';
 
 import { HandleAppError } from '@shared/errors/HandleAppError';
 
 import connection from '../../database/connection';
+import '../../container';
 import { router } from './routes';
 
 connection();

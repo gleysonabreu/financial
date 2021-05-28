@@ -12,6 +12,8 @@ Projeto com objetivo guardar o fluxo caixa de qualquer tipo de empresa.
     - [x] Gerente
     - [x] Financeiro
   - [] Sistema de esqueci minha senha
+    - [x] Enviar email com link para alterar senha
+    - [] Alterar senha
 - Users
 
   - [] Remover usuário, somente admins
@@ -195,3 +197,8 @@ Projeto com objetivo guardar o fluxo caixa de qualquer tipo de empresa.
     - header: Authorization
     - body: `{ account_type_id, justification, value, date }`
     - retorna: `{ id, account_type_id, justification, value, date }`
+
+- Esqueci minha senha
+  - /password/forgot
+  - tipo: post
+  - body: `{email}`

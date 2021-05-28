@@ -3,6 +3,7 @@ import { Router } from 'express';
 import { accountTypeRouter } from './accountType.routes';
 import { authenticationRouter } from './authentication.routes';
 import { billRouter } from './bill.routes';
+import { passwordRouter } from './password.routes';
 import { permissionRouter } from './permission.routes';
 import { userRouter } from './user.routes';
 import { userProfileRouter } from './userProfile.routes';
@@ -15,5 +16,6 @@ router.use('/profile', userProfileRouter);
 router.use('/permissions', permissionRouter);
 router.use('/account-types', accountTypeRouter);
 router.use('/bills', billRouter);
+router.use('/password', passwordRouter);
 
 export { router };
