@@ -16,7 +16,7 @@ Projeto com objetivo guardar o fluxo caixa de qualquer tipo de empresa.
     - [x] Alterar senha
 - Users
 
-  - [] Remover usuário, somente admins
+  - [x] Remover usuário, somente admins
   - [x] Buscar todos os usuários (com filtros), somente admins
     - Buscar
       - [x] Por cpf
@@ -63,6 +63,12 @@ Projeto com objetivo guardar o fluxo caixa de qualquer tipo de empresa.
 ## Requisições
 
 - Users
+
+  - /users/:id
+
+    - tipo: delete
+    - header: Authorization
+    - parâmetros: id
 
   - /users/:id
 
