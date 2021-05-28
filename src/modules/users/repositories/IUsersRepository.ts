@@ -10,6 +10,7 @@ interface IUsersRepository {
   findByPhone: (phone: string) => Promise<User | undefined>;
   findAll(filters?: IGetAllUserDTO): Promise<User[]>;
   update: (user: User) => Promise<User>;
+  remove: (user: User) => Promise<void>;
 }
 
 export { IUsersRepository };

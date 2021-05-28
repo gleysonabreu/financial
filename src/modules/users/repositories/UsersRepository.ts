@@ -60,6 +60,10 @@ class UsersRepository implements IUsersRepository {
     const users = await usersQuery.getMany();
     return users;
   }
+
+  async remove(user: User): Promise<void> {
+    await this.repository.remove(user);
+  }
 }
 
 export { UsersRepository };
