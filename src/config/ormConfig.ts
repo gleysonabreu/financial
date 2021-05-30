@@ -19,4 +19,4 @@ const ormConfig = {
   },
 } as ConnectionOptions;
 
-export = ormConfig;
+export default ormConfig;
