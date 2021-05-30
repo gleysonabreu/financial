@@ -18,11 +18,11 @@ const ormConfig = {
     migrationsDir: process.env.TYPEORM_MIGRATIONS_DIR,
   },
 
-  ssl: process.env.TYPEORM_SSL,
+  ssl: process.env.TYPEORM_SSL === 'true',
 
   extra: {
     ssl: {
-      rejectUnauthorized: process.env.TYPEORM_REJECT_UNAUTHORIZED,
+      rejectUnauthorized: process.env.TYPEORM_REJECT_UNAUTHORIZED === 'true',
     },
   },
 } as ConnectionOptions;
