@@ -17,6 +17,8 @@ const ormConfig = {
   cli: {
     migrationsDir: process.env.TYPEORM_MIGRATIONS_DIR,
   },
+
+  extra: process.env.TYPEORM_DRIVER_EXTRA,
 } as ConnectionOptions;
 
 export default ormConfig;
