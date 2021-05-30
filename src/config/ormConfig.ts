@@ -19,7 +19,12 @@ const ormConfig = {
   },
 
   ssl: process.env.TYPEORM_SSL,
-  extra: process.env.TYPEORM_DRIVER_EXTRA,
+
+  extra: {
+    ssl: {
+      rejectUnauthorized: process.env.TYPEORM_REJECT_UNAUTHORIZED,
+    },
+  },
 } as ConnectionOptions;
 
 export default ormConfig;
