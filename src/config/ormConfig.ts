@@ -18,6 +18,7 @@ const ormConfig = {
     migrationsDir: process.env.TYPEORM_MIGRATIONS_DIR,
   },
 
+  ssl: process.env.TYPEORM_SSL,
   extra: process.env.TYPEORM_DRIVER_EXTRA,
 } as ConnectionOptions;
 
