@@ -47,7 +47,7 @@ class SendForgotPasswordMailUseCase {
     const expireDate = this.dayjsDateProvider.addHours(3);
     const variables = {
       name: `${user.firstName} ${user.lastName}`,
-      url: `${process.env.FORGOT_PASSWORD_MAIL_URL}/${token}`,
+      url: `${process.env.FORGOT_PASSWORD_MAIL_URL}${token}`,
     };
 
     await this.usersTokensRepository.create({
