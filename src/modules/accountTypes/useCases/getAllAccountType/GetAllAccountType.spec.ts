@@ -52,7 +52,6 @@ describe('GetAllAccountType', () => {
     });
 
     const response = await getAllAccountType.execute({ userId: user.id });
-    console.log(response, accountType);
     expect(response).toEqual([accountType]);
   });
 });
