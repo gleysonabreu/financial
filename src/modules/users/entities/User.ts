@@ -33,6 +33,9 @@ class User {
   birthDate: string;
 
   @Column()
+  avatar: string;
+
+  @Column()
   phone: string;
 
   @OneToMany(() => Permission, permission => permission.user, {

@@ -10,6 +10,7 @@ interface IResponse {
   cpf: string;
   birthDate: string;
   phone: string;
+  avatar: string;
   permissions: Permission[];
   createdAt: Date;
   updatedAt: Date;
@@ -20,6 +21,15 @@ class ProfileData {
     return users.map(user => this.toDTO(user));
   }
 
+  static convertToUrl(avatar: string): string {
+    switch (process.env.STORAGE_PROVIDER) {
+      case 'local':
+        return `${process.env.APP_API_URL}/${process.env.STORAGE_FOLDER}/${avatar}`;
+      default:
+        return null;
+    }
+  }
+
   static toDTO({
     id,
     firstName,
@@ -28,6 +38,7 @@ class ProfileData {
     cpf,
     birthDate,
     phone,
+    avatar,
     permissions,
     createdAt,
     updatedAt,
@@ -40,6 +51,7 @@ class ProfileData {
       cpf,
       birthDate,
       phone,
+      avatar: this.convertToUrl(avatar),
       permissions,
       createdAt,
       updatedAt,
