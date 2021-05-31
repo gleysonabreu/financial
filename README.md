@@ -29,6 +29,7 @@ Projeto com objetivo guardar o fluxo caixa de qualquer tipo de empresa.
   - [x] Cadastrar usuários, somente admins
   - [x] Atualizar usuário, todos os usuários poderão atualizar seus dados
   - [x] Visualizar perfil
+  - [x] Atualizar avatar de usuário
 
 - Permissões
 
@@ -63,6 +64,12 @@ Projeto com objetivo guardar o fluxo caixa de qualquer tipo de empresa.
 ## Requisições
 
 - Users
+
+  - /users/avatar
+
+    - tipo: patch
+    - header: Authorization
+    - body: form multipart: `avatar: tipo file`
 
   - /users/:id
 
