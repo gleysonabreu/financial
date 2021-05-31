@@ -48,6 +48,7 @@ class SendForgotPasswordMailUseCase {
     const variables = {
       name: `${user.firstName} ${user.lastName}`,
       url: `${process.env.FORGOT_PASSWORD_MAIL_URL}${token}`,
+      app_name: process.env.APP_NAME,
     };
 
     await this.usersTokensRepository.create({
