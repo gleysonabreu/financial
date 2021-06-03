@@ -12,4 +12,10 @@ export namespace CreatePermissionError {
       super('Permission already exists for this user');
     }
   }
+
+  export class PermissionNotExist extends AppError {
+    constructor() {
+      super('Permission type does not exist!');
+    }
+  }
 }

@@ -1,3 +1,4 @@
+import { financialEnv } from '@config/financialEnv';
 import { Permission } from '@modules/permissions/entities/Permission';
 import { IPermissionsRepository } from '@modules/permissions/repositories/IPermissionsRepository';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
@@ -22,6 +23,16 @@ class CreatePermissionsUseCase {
       type: yup.number().required(),
     });
     await schema.validate({ userId, type }, { abortEarly: false });
+
+    const permissionsValid = [
+      financialEnv.financialAdminPermission,
+      financialEnv.financialAdministrativePermission,
+      financialEnv.financialManagerPermission,
+    ];
+
+    if (!permissionsValid.includes(type)) {
+      throw new CreatePermissionError.PermissionNotExist();
+    }
 
     const user = await this.usersRepository.findById(userId);
     if (!user) {

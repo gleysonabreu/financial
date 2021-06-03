@@ -46,6 +46,26 @@ describe('CreatePermissionUseCase', () => {
     );
   });
 
+  it('should not be able to create a permission if permission type does not exist', async () => {
+    const user = await usersRepository.create({
+      email: 'test@test.com',
+      firstName: 'Testing',
+      lastName: 'Test',
+      birthDate: '1990-02-25',
+      cpf: '00000000000',
+      phone: '00000000000',
+      password: await hash('1234567'),
+      permissions: [],
+    });
+
+    await expect(async () => {
+      await createPermissionUseCase.execute({
+        type: 4,
+        userId: user.id,
+      });
+    }).rejects.toBeInstanceOf(CreatePermissionError.PermissionNotExist);
+  });
+
   it('should not be able create a permission with user invalid', async () => {
     await expect(async () => {
       await createPermissionUseCase.execute({
