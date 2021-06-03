@@ -1,3 +1,4 @@
+import { ProfileData } from '@modules/users/mappers/ProfileData';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { inject, injectable } from 'tsyringe';
 import * as yup from 'yup';
@@ -59,6 +60,7 @@ class AuthenticateUserUseCase {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
+        avatar: ProfileData.convertToUrl(user.avatar),
       },
     };
   }
