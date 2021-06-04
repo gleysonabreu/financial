@@ -10,7 +10,6 @@ import multer from 'multer';
 
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 import { ensurePermission } from '../middlewares/ensurePermission';
-import { multerValidErrors } from '../middlewares/multerValidErrors';
 
 const userRouter = Router();
 const uploadAvatar = multer(upload);
