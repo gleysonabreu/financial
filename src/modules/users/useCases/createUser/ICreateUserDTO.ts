@@ -7,9 +7,7 @@ interface ICreateUserDTO {
   birthDate: string;
   phone: string;
 
-  permissions: {
-    type: number;
-  }[];
+  permission: string;
 }
 
 export { ICreateUserDTO };

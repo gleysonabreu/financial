@@ -31,11 +31,7 @@ describe('UpdateAccountTypeUseCase', () => {
       lastName: 'Test',
       password: await hash('1234567'),
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     const accountType = await accountTypesRepository.create({
@@ -78,11 +74,7 @@ describe('UpdateAccountTypeUseCase', () => {
       lastName: 'Test',
       password: await hash('1234567'),
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     await expect(async () => {
@@ -103,11 +95,7 @@ describe('UpdateAccountTypeUseCase', () => {
       lastName: 'Test',
       password: await hash('1234567'),
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     await accountTypesRepository.create({

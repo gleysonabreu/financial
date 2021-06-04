@@ -31,11 +31,7 @@ describe('CreateAccountTypeUseCase', () => {
       lastName: 'Test',
       password: await hash('1234567'),
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     const response = await createAccountTypeUseCase.execute({
@@ -65,11 +61,7 @@ describe('CreateAccountTypeUseCase', () => {
       lastName: 'Test',
       password: await hash('1234567'),
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
     await createAccountTypeUseCase.execute({
       name: 'test',

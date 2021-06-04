@@ -18,4 +18,10 @@ export namespace CreateUserError {
       super('CPF already exists');
     }
   }
+
+  export class PermissionNotExist extends AppError {
+    constructor() {
+      super('Permission does not exist.');
+    }
+  }
 }

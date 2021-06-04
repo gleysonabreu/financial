@@ -6,7 +6,7 @@ import { verify } from '@shared/services/token';
 
 interface IPayload {
   user: {
-    roles: number[];
+    roles: string[];
   };
   sub: string;
 }

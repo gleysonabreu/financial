@@ -17,7 +17,7 @@ describe('DeletePermissionUseCase', () => {
   it('should be able to delete a permission', async () => {
     const permission = await permissionsRepository.create({
       userId: '9907ceee-fb10-4057-92fb-8372ad238d52',
-      type: 1,
+      type: 'ADMIN',
     });
 
     const response = await deletePermissionUseCase.execute({

@@ -13,7 +13,7 @@ class CreateUserController {
       phone,
       cpf,
       birth_date: birthDate,
-      permissions,
+      permission,
     } = request.body;
 
     const createUser = container.resolve(CreateUserUseCase);
@@ -25,7 +25,7 @@ class CreateUserController {
       birthDate,
       cpf,
       phone,
-      permissions,
+      permission,
     });
 
     return response.status(201).send();

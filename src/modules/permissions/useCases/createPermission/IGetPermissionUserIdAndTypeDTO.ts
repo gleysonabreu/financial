@@ -1,6 +1,6 @@
 interface IGetPermissionUserIdAndTypeDTO {
   userId: string;
-  type: number;
+  type: string;
 }
 
 export { IGetPermissionUserIdAndTypeDTO };

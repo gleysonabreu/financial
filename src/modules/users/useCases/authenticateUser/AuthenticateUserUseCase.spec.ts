@@ -24,11 +24,7 @@ describe('AuthenticateUserUseCase', () => {
       birthDate: '1990-02-25',
       cpf: '00000000000',
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     const response = await authenticateUserCase.execute({
@@ -50,11 +46,7 @@ describe('AuthenticateUserUseCase', () => {
         birthDate: '1990-02-25',
         cpf: '00000000000',
         phone: '00000000000',
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
 
       await authenticateUserCase.execute({
@@ -74,11 +66,7 @@ describe('AuthenticateUserUseCase', () => {
         cpf: '00000000000',
         phone: '00000000000',
         password: await hash('1234567'),
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
 
       await authenticateUserCase.execute({

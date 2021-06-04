@@ -1,5 +1,13 @@
-import { User } from "@modules/users/entities/User";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { User } from '@modules/users/entities/User';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 @Entity('permissions')
@@ -11,7 +19,7 @@ class Permission {
   userId: string;
 
   @Column()
-  type: number;
+  type: string;
 
   @ManyToOne(() => User, user => user.permissions)
   @JoinColumn({ name: 'user_id' })

@@ -24,11 +24,7 @@ describe('UpdateUserUseCase', () => {
       cpf: '00000000000',
       phone: '00000000000',
       password: await hash('1234567'),
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     const response = await updateUserUseCase.execute({
@@ -73,11 +69,7 @@ describe('UpdateUserUseCase', () => {
       firstName: 'testing',
       lastName: 'Test',
       password: await hash('1234567'),
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
       phone: '00000000000',
     });
     const user = await usersRepository.create({
@@ -87,11 +79,7 @@ describe('UpdateUserUseCase', () => {
       firstName: 'testing',
       lastName: 'Test',
       password: await hash('1234567'),
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
       phone: '00000000003',
     });
     await expect(async () => {
@@ -116,11 +104,7 @@ describe('UpdateUserUseCase', () => {
       cpf: '00000000006',
       phone: '00000000006',
       password: await hash('1234567'),
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
     const user = await usersRepository.create({
       email: 'test7@test.com',
@@ -130,11 +114,7 @@ describe('UpdateUserUseCase', () => {
       cpf: '00000000007',
       phone: '00000000007',
       password: await hash('1234567'),
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
     await expect(async () => {
       await updateUserUseCase.execute({
@@ -158,11 +138,7 @@ describe('UpdateUserUseCase', () => {
       cpf: '00000000004',
       phone: '00000000004',
       password: await hash('1234567'),
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     const user = await usersRepository.create({
@@ -173,11 +149,7 @@ describe('UpdateUserUseCase', () => {
       cpf: '00000000005',
       phone: '00000000005',
       password: await hash('1234567'),
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
     await expect(async () => {
       await updateUserUseCase.execute({

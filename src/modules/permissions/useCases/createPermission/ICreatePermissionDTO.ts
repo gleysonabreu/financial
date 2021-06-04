@@ -1,6 +1,6 @@
 interface ICreatePermissionDTO {
   userId: string;
-  type: number;
+  type: string;
 }
 
 export { ICreatePermissionDTO };

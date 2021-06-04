@@ -24,14 +24,25 @@ describe('CreateUserUseCase', () => {
       birthDate: '1990-02-25',
       cpf: '00000000000',
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     expect(response).toHaveProperty('id');
+  });
+
+  it('should not be able to create a user if permission does not exist', async () => {
+    await expect(async () => {
+      await createUserUseCase.execute({
+        firstName: 'Testing',
+        lastName: 'Test',
+        email: 'test@test.com',
+        password: await hash('1234567'),
+        birthDate: '1990-02-25',
+        cpf: '00000000000',
+        phone: '00000000000',
+        permission: 'Any',
+      });
+    }).rejects.toBeInstanceOf(CreateUserError.PermissionNotExist);
   });
 
   it('should not be able to create a user with email already exists', async () => {
@@ -44,11 +55,7 @@ describe('CreateUserUseCase', () => {
         birthDate: '1990-02-25',
         cpf: '00000000000',
         phone: '00000000000',
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
 
       await createUserUseCase.execute({
@@ -59,11 +66,7 @@ describe('CreateUserUseCase', () => {
         birthDate: '1990-02-25',
         cpf: '00000000001',
         phone: '00000000001',
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
     }).rejects.toBeInstanceOf(CreateUserError.EmailAlreadyExists);
   });
@@ -78,11 +81,7 @@ describe('CreateUserUseCase', () => {
         birthDate: '1990-02-25',
         cpf: '00000000000',
         phone: '00000000000',
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
 
       await createUserUseCase.execute({
@@ -93,11 +92,7 @@ describe('CreateUserUseCase', () => {
         birthDate: '1990-02-25',
         cpf: '00000000001',
         phone: '00000000000',
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
     }).rejects.toBeInstanceOf(CreateUserError.PhoneAlreadyExists);
   });
@@ -112,11 +107,7 @@ describe('CreateUserUseCase', () => {
         birthDate: '1990-02-25',
         cpf: '00000000000',
         phone: '00000000000',
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
 
       await createUserUseCase.execute({
@@ -127,11 +118,7 @@ describe('CreateUserUseCase', () => {
         birthDate: '1990-02-25',
         cpf: '00000000000',
         phone: '00000000002',
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
     }).rejects.toBeInstanceOf(CreateUserError.CpfAlreadyExists);
   });
