@@ -11,6 +11,7 @@ interface IResponse {
   birthDate: string;
   phone: string;
   avatar: string;
+  avatarUrl: string;
   permissions: Permission[];
   createdAt: Date;
   updatedAt: Date;
@@ -51,7 +52,8 @@ class ProfileData {
       cpf,
       birthDate,
       phone,
-      avatar: this.convertToUrl(avatar),
+      avatar,
+      avatarUrl: this.convertToUrl(avatar),
       permissions,
       createdAt,
       updatedAt,

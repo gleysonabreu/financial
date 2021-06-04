@@ -60,7 +60,8 @@ class AuthenticateUserUseCase {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        avatar: ProfileData.convertToUrl(user.avatar),
+        avatar: user.avatar,
+        avatarUrl: ProfileData.convertToUrl(user.avatar),
       },
     };
   }
