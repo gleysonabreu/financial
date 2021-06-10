@@ -11,15 +11,11 @@ const ensurePermission = (authorizedPermissions: string[] = []) => {
   ): Promise<void> => {
     const allPermissions = [permissions.ADMIN, ...authorizedPermissions];
 
-    const verifyPermission = request.user.roles.map(role => {
-      if (allPermissions.includes(role)) {
-        return true;
-      }
+    const verifyPermission = request.user.roles.some(role =>
+      allPermissions.includes(role),
+    );
 
-      return false;
-    });
-
-    if (!verifyPermission.includes(true)) {
+    if (!verifyPermission) {
       throw new PermissionError();
     }
 
