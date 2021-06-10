@@ -14,15 +14,11 @@ const ensurePermission = (permissions: number[] = []) => {
       ...permissions,
     ];
 
-    const verifyPermission = request.user.roles.map(role => {
-      if (allPermissions.includes(role)) {
-        return true;
-      }
+    const verifyPermission = request.user.roles.some(role =>
+      allPermissions.includes(role),
+    );
 
-      return false;
-    });
-
-    if (!verifyPermission.includes(true)) {
+    if (!verifyPermission) {
       throw new PermissionError();
     }
 
