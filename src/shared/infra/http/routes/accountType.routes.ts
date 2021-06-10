@@ -17,15 +17,29 @@ const updateAccountTypeController = new UpdateAccountTypeController();
 const getAllAccountTypeController = new GetAllAccountTypeController();
 const getOneAccountTypeController = new GetOneAccountTypeController();
 
-accountTypeRouter.use([
+const permissions = [
   ensureAuthenticated,
   ensurePermission([financialEnv.financialAdministrativePermission]),
-]);
+];
 
-accountTypeRouter.post('/', createAccountTypeController.execute);
-accountTypeRouter.delete('/:id', deleteAccountTypeController.execute);
-accountTypeRouter.put('/:id', updateAccountTypeController.execute);
-accountTypeRouter.get('/', getAllAccountTypeController.execute);
-accountTypeRouter.get('/:id', getOneAccountTypeController.execute);
+accountTypeRouter.post('/', permissions, createAccountTypeController.execute);
+accountTypeRouter.delete(
+  '/:id',
+  permissions,
+  deleteAccountTypeController.execute,
+);
+accountTypeRouter.put('/:id', permissions, updateAccountTypeController.execute);
+accountTypeRouter.get(
+  '/',
+  [
+    ensureAuthenticated,
+    ensurePermission([
+      financialEnv.financialAdministrativePermission,
+      financialEnv.financialManagerPermission,
+    ]),
+  ],
+  getAllAccountTypeController.execute,
+);
+accountTypeRouter.get('/:id', permissions, getOneAccountTypeController.execute);
 
 export { accountTypeRouter };
