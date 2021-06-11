@@ -1,3 +1,4 @@
+import { UsersRepository } from '@modules/users/repositories/UsersRepository';
 import { NextFunction, Request, Response } from 'express';
 
 import { JWTInvalidTokenError } from '@shared/errors/JWTInvalidTokenError';
@@ -18,22 +19,28 @@ async function ensureAuthenticated(
 ): Promise<void> {
   const authHeader = request.headers.authorization;
 
-  if (!authHeader) {
-    throw new JWTTokenMissingError();
-  }
+  if (authHeader) {
+    const [, token] = authHeader.split(' ');
+    try {
+      const { sub: userId, user: userInfo } = (await verify(token)) as IPayload;
 
-  const [, token] = authHeader.split(' ');
-  try {
-    const { sub: userId, user: userInfo } = (await verify(token)) as IPayload;
+      const usersRepository = new UsersRepository();
+      const user = await usersRepository.findById(userId);
+      if (user) {
+        request.user = {
+          id: userId,
+          roles: userInfo.roles,
+        };
 
-    request.user = {
-      id: userId,
-      roles: userInfo.roles,
-    };
-
-    next();
-  } catch {
-    throw new JWTInvalidTokenError();
+        next();
+      } else {
+        next(new JWTInvalidTokenError());
+      }
+    } catch {
+      next(new JWTInvalidTokenError());
+    }
+  } else {
+    next(new JWTTokenMissingError());
   }
 }
 
