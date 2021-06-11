@@ -2,6 +2,7 @@ import { getRepository, Repository } from 'typeorm';
 
 import { AccountType } from '../entities/AccountType';
 import { ICreateAccountTypeDTO } from '../useCases/createAccountType/CreateAccountTypeDTO';
+import { IGetAllAccountTypeDTO } from '../useCases/getAllAccountType/IGetAllAccountTypeDTO';
 import { IAccountTypesRepository } from './IAccountTypesRepository';
 
 class AccountTypesRepository implements IAccountTypesRepository {
@@ -32,8 +33,24 @@ class AccountTypesRepository implements IAccountTypesRepository {
     return this.repository.save(accountType);
   }
 
-  async findAll(): Promise<AccountType[]> {
-    return this.repository.find();
+  async findAll({
+    name,
+    page,
+    per_page: perPage,
+  }: IGetAllAccountTypeDTO): Promise<AccountType[]> {
+    const accountTypeQuery = await this.repository
+      .createQueryBuilder('account_type')
+      .take(perPage)
+      .skip(page);
+
+    if (name) {
+      accountTypeQuery.andWhere('name LIKE :name', {
+        name: `%${name}%`,
+      });
+    }
+
+    const accountTypes = await accountTypeQuery.getMany();
+    return accountTypes;
   }
 }
 

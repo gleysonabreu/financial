@@ -1,5 +1,8 @@
 interface IGetAllAccountTypeDTO {
-  userId: string;
+  userId?: string;
+  name?: string;
+  page?: number;
+  per_page?: number;
 }
 
 export { IGetAllAccountTypeDTO };

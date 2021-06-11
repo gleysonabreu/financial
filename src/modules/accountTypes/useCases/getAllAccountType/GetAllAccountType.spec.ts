@@ -47,7 +47,55 @@ describe('GetAllAccountType', () => {
       name: 'test',
     });
 
-    const response = await getAllAccountType.execute({ userId: user.id });
-    expect(response).toEqual([accountType]);
+    const { accountTypes } = await getAllAccountType.execute({
+      userId: user.id,
+    });
+    expect(accountTypes).toEqual([accountType]);
+  });
+
+  it('should be able to get all account types by name', async () => {
+    const user = await usersRepository.create({
+      birthDate: '2020-02-15',
+      cpf: '00000000000',
+      email: 'test@test.com',
+      firstName: 'Testing',
+      lastName: 'Test',
+      password: await hash('1234567'),
+      phone: '00000000000',
+      permission: 'ADMIN',
+    });
+
+    const accountType = await accountTypesRepository.create({
+      name: 'test',
+    });
+
+    const { accountTypes } = await getAllAccountType.execute({
+      userId: user.id,
+      name: 't',
+    });
+    expect(accountTypes).toEqual([accountType]);
+  });
+
+  it('should not be able to get all account types by name if name does not exist', async () => {
+    const user = await usersRepository.create({
+      birthDate: '2020-02-15',
+      cpf: '00000000000',
+      email: 'test@test.com',
+      firstName: 'Testing',
+      lastName: 'Test',
+      password: await hash('1234567'),
+      phone: '00000000000',
+      permission: 'ADMIN',
+    });
+
+    const accountType = await accountTypesRepository.create({
+      name: 'criatura',
+    });
+
+    const { accountTypes } = await getAllAccountType.execute({
+      userId: user.id,
+      name: 'g',
+    });
+    expect(accountTypes).not.toEqual([accountType]);
   });
 });
