@@ -5,7 +5,6 @@ import { CreateAccountTypeUseCase } from './CreateAccountTypeUseCase';
 
 class CreateAccountTypeController {
   async execute(request: Request, response: Response): Promise<Response> {
-    const { id: userId } = request.user;
     const { name } = request.body;
 
     const createAccountTypeUseCase = container.resolve(
@@ -13,7 +12,6 @@ class CreateAccountTypeController {
     );
     await createAccountTypeUseCase.execute({
       name,
-      userId,
     });
 
     return response.status(204).send();

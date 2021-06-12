@@ -5,7 +5,6 @@ import { DeleteAccountTypeUseCase } from './DeleteAccountTypeUseCase';
 
 class DeleteAccountTypeController {
   async execute(request: Request, response: Response): Promise<Response> {
-    const { id: userId } = request.user;
     const { id } = request.params;
 
     const deleteAccountTypeUseCase = container.resolve(
@@ -13,7 +12,6 @@ class DeleteAccountTypeController {
     );
     await deleteAccountTypeUseCase.execute({
       id,
-      userId,
     });
 
     return response.status(204).send();
