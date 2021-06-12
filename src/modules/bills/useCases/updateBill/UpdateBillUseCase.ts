@@ -25,7 +25,7 @@ class UpdateBillUseCase {
     const schema = yup.object().shape({
       id: yup.string().uuid().required(),
       accountTypeId: yup.string().uuid().required(),
-      justification: yup.string().required(),
+      justification: yup.string().min(10).required(),
       value: yup.number().required(),
     });
     await schema.validate(

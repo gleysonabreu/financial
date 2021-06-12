@@ -26,8 +26,8 @@ class AuthenticateUserUseCase {
     password,
   }: IRequest): Promise<IAuthenticateUserResponseDTO> {
     const schema = yup.object().shape({
-      email: yup.string().email().required(),
-      password: yup.string().required(),
+      email: yup.string().min(10).email().required(),
+      password: yup.string().min(6).required(),
     });
     await schema.validate({ email, password }, { abortEarly: false });
 

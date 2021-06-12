@@ -25,7 +25,7 @@ class CreateBillUseCase {
   }: ICreateBillDTO): Promise<Bill> {
     const schema = yup.object().shape({
       accountTypeId: yup.string().uuid().required(),
-      justification: yup.string().required(),
+      justification: yup.string().min(10).required(),
       value: yup.number().required(),
       date: yup
         .string()

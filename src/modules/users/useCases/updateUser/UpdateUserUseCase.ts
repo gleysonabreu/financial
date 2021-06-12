@@ -24,9 +24,9 @@ class UpdateUserUseCase {
     birthDate,
   }: IUpdateUserDTO): Promise<User> {
     const schema = yup.object().shape({
-      email: yup.string().email().required(),
-      firstName: yup.string().required(),
-      lastName: yup.string().required(),
+      email: yup.string().min(10).email().required(),
+      firstName: yup.string().min(5).required(),
+      lastName: yup.string().min(5).required(),
       id: yup.string().uuid().required(),
       cpf: yup.string().min(11).max(11).required(),
       phone: yup.string().min(11).max(11).required(),

@@ -28,10 +28,10 @@ class CreateUserUseCase {
     phone,
   }: ICreateUserDTO): Promise<User> {
     const schema = yup.object().shape({
-      email: yup.string().email().required(),
-      password: yup.string().required(),
-      firstName: yup.string().required(),
-      lastName: yup.string().required(),
+      email: yup.string().min(10).email().required(),
+      password: yup.string().min(6).required(),
+      firstName: yup.string().min(5).required(),
+      lastName: yup.string().min(5).required(),
       permission: yup.string().required(),
       birthDate: yup
         .string()

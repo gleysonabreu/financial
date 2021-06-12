@@ -25,7 +25,7 @@ class SendForgotPasswordMailUseCase {
 
   async execute(email: string): Promise<void> {
     const schema = yup.object().shape({
-      email: yup.string().email().min(1).required(),
+      email: yup.string().min(10).email().required(),
     });
     await schema.validate({ email }, { abortEarly: false });
 
