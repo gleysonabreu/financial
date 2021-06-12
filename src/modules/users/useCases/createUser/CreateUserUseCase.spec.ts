@@ -18,7 +18,7 @@ describe('CreateUserUseCase', () => {
   it('should be able to create a user', async () => {
     const response = await createUserUseCase.execute({
       firstName: 'Testing',
-      lastName: 'Test',
+      lastName: 'Test again',
       email: 'test@test.com',
       password: await hash('1234567'),
       birthDate: '1990-02-25',
@@ -34,7 +34,7 @@ describe('CreateUserUseCase', () => {
     await expect(async () => {
       await createUserUseCase.execute({
         firstName: 'Testing',
-        lastName: 'Test',
+        lastName: 'Test again',
         email: 'test@test.com',
         password: await hash('1234567'),
         birthDate: '1990-02-25',
@@ -49,7 +49,7 @@ describe('CreateUserUseCase', () => {
     await expect(async () => {
       await createUserUseCase.execute({
         firstName: 'Testing',
-        lastName: 'Test',
+        lastName: 'Test again',
         email: 'test@test.com',
         password: await hash('1234567'),
         birthDate: '1990-02-25',
@@ -60,7 +60,7 @@ describe('CreateUserUseCase', () => {
 
       await createUserUseCase.execute({
         firstName: 'Testing',
-        lastName: 'Test',
+        lastName: 'Test again',
         email: 'test@test.com',
         password: await hash('1234567'),
         birthDate: '1990-02-25',
@@ -75,7 +75,7 @@ describe('CreateUserUseCase', () => {
     await expect(async () => {
       await createUserUseCase.execute({
         firstName: 'Testing',
-        lastName: 'Test',
+        lastName: 'Test again',
         email: 'test@test.com',
         password: await hash('1234567'),
         birthDate: '1990-02-25',
@@ -86,7 +86,7 @@ describe('CreateUserUseCase', () => {
 
       await createUserUseCase.execute({
         firstName: 'Testing',
-        lastName: 'Test',
+        lastName: 'Test again',
         email: 'test1@test.com',
         password: await hash('1234567'),
         birthDate: '1990-02-25',
@@ -101,7 +101,7 @@ describe('CreateUserUseCase', () => {
     await expect(async () => {
       await createUserUseCase.execute({
         firstName: 'Testing',
-        lastName: 'Test',
+        lastName: 'Test again',
         email: 'test@test.com',
         password: await hash('1234567'),
         birthDate: '1990-02-25',
@@ -112,7 +112,7 @@ describe('CreateUserUseCase', () => {
 
       await createUserUseCase.execute({
         firstName: 'Testing',
-        lastName: 'Test',
+        lastName: 'Test again',
         email: 'test1@test.com',
         password: await hash('1234567'),
         birthDate: '1990-02-25',
