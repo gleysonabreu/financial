@@ -1,6 +1,7 @@
 node_modules/
 .env
 .env.dev
+.env.test
 private-key.pem
 public-key.pem
 coverage/
