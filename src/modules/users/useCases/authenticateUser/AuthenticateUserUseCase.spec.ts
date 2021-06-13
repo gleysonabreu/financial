@@ -36,26 +36,6 @@ describe('AuthenticateUserUseCase', () => {
     expect(response).toHaveProperty('user');
   });
 
-  it('should not be able to authenticate with wrong password', async () => {
-    await expect(async () => {
-      await usersRepository.create({
-        firstName: 'Testing',
-        lastName: 'Test',
-        email: 'test@test.com',
-        password: await hash('1234567'),
-        birthDate: '1990-02-25',
-        cpf: '00000000000',
-        phone: '00000000000',
-        permission: 'ADMIN',
-      });
-
-      await authenticateUserCase.execute({
-        email: 'test@test.com',
-        password: '123456',
-      });
-    }).rejects.toBeInstanceOf(IncorrectEmailOrPassword);
-  });
-
   it('should not be able to authenticate with wrong email', async () => {
     await expect(async () => {
       await usersRepository.create({
@@ -72,6 +52,26 @@ describe('AuthenticateUserUseCase', () => {
       await authenticateUserCase.execute({
         email: 'test@test.co',
         password: '1234567',
+      });
+    }).rejects.toBeInstanceOf(IncorrectEmailOrPassword);
+  });
+
+  it('should not be able to authenticate with wrong password', async () => {
+    await expect(async () => {
+      await usersRepository.create({
+        firstName: 'Testing',
+        lastName: 'Test',
+        email: 'test@test.com',
+        password: await hash('1234567'),
+        birthDate: '1990-02-25',
+        cpf: '00000000000',
+        phone: '00000000000',
+        permission: 'ADMIN',
+      });
+
+      await authenticateUserCase.execute({
+        email: 'test@test.com',
+        password: '123456',
       });
     }).rejects.toBeInstanceOf(IncorrectEmailOrPassword);
   });

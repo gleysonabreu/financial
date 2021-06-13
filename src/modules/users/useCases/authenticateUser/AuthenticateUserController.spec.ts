@@ -41,19 +41,19 @@ describe('AuthenticateUserController', () => {
     expect(response.body).toHaveProperty('token');
   });
 
-  it('should not be able to authenticate with wrong password', async () => {
+  it('should not be able to authenticate with wrong email', async () => {
     const response = await request(app).post('/auth').send({
-      email: 'admin@admin.com',
-      password: 'wrong-password',
+      email: 'wrong_email@admin.com',
+      password: 'admin123',
     });
 
     expect(response.status).toBe(401);
   });
 
-  it('should not be able to authenticate with wrong email', async () => {
+  it('should not be able to authenticate with wrong password', async () => {
     const response = await request(app).post('/auth').send({
-      email: 'wrong_email@admin.com',
-      password: 'admin123',
+      email: 'admin@admin.com',
+      password: 'wrong-password',
     });
 
     expect(response.status).toBe(401);
