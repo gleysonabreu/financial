@@ -10,11 +10,11 @@ class CreateAccountTypeController {
     const createAccountTypeUseCase = container.resolve(
       CreateAccountTypeUseCase,
     );
-    await createAccountTypeUseCase.execute({
+    const accountType = await createAccountTypeUseCase.execute({
       name,
     });
 
-    return response.status(204).send();
+    return response.json(accountType);
   }
 }
 

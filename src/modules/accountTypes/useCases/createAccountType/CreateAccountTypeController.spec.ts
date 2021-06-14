@@ -46,7 +46,8 @@ describe('CreateAccountTypeController', () => {
       })
       .set('Authorization', `Bearer ${token}`);
 
-    expect(response.status).toBe(204);
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('id');
   });
 
   it('should not be able to create an account type without authenticate', async () => {
