@@ -1,8 +1,6 @@
 import { InMemoryUsersRepository } from '@modules/users/repositories/in-memory/InMemoryUsersRepository';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 
-import { hash } from '@shared/services/password';
-
 import { CreateUserError } from './CreateUserError';
 import { CreateUserUseCase } from './CreateUserUseCase';
 
@@ -20,7 +18,7 @@ describe('CreateUserUseCase', () => {
       firstName: 'Testing',
       lastName: 'Test again',
       email: 'test@test.com',
-      password: await hash('1234567'),
+      password: '1234567',
       birthDate: '1990-02-25',
       cpf: '00000000000',
       phone: '00000000000',
@@ -36,7 +34,7 @@ describe('CreateUserUseCase', () => {
         firstName: 'Testing',
         lastName: 'Test again',
         email: 'test@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birthDate: '1990-02-25',
         cpf: '00000000000',
         phone: '00000000000',
@@ -51,7 +49,7 @@ describe('CreateUserUseCase', () => {
         firstName: 'Testing',
         lastName: 'Test again',
         email: 'test@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birthDate: '1990-02-25',
         cpf: '00000000000',
         phone: '00000000000',
@@ -62,7 +60,7 @@ describe('CreateUserUseCase', () => {
         firstName: 'Testing',
         lastName: 'Test again',
         email: 'test@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birthDate: '1990-02-25',
         cpf: '00000000001',
         phone: '00000000001',
@@ -77,7 +75,7 @@ describe('CreateUserUseCase', () => {
         firstName: 'Testing',
         lastName: 'Test again',
         email: 'test@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birthDate: '1990-02-25',
         cpf: '00000000000',
         phone: '00000000000',
@@ -88,7 +86,7 @@ describe('CreateUserUseCase', () => {
         firstName: 'Testing',
         lastName: 'Test again',
         email: 'test1@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birthDate: '1990-02-25',
         cpf: '00000000001',
         phone: '00000000000',
@@ -103,7 +101,7 @@ describe('CreateUserUseCase', () => {
         firstName: 'Testing',
         lastName: 'Test again',
         email: 'test@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birthDate: '1990-02-25',
         cpf: '00000000000',
         phone: '00000000000',
@@ -114,7 +112,7 @@ describe('CreateUserUseCase', () => {
         firstName: 'Testing',
         lastName: 'Test again',
         email: 'test1@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birthDate: '1990-02-25',
         cpf: '00000000000',
         phone: '00000000002',

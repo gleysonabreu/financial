@@ -48,7 +48,7 @@ describe('CreateUserController', () => {
         cpf: '00000000002',
         phone: '00000000002',
         email: 'test@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birth_date: '1990-02-12',
         permission: 'MANAGER',
       });
@@ -72,7 +72,7 @@ describe('CreateUserController', () => {
         cpf: '00000000002',
         phone: '00000000002',
         email: 'test@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birth_date: '1990-02-12',
         permission: 'MANAGER',
       });
@@ -112,7 +112,7 @@ describe('CreateUserController', () => {
         cpf: '00000000003',
         phone: '00000000003',
         email: 'test@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birth_date: '1990-02-12',
         permission: 'MANAGER',
       });
@@ -137,7 +137,7 @@ describe('CreateUserController', () => {
         cpf: '00000000004',
         phone: '00000000002',
         email: 'test3@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birth_date: '1990-02-12',
         permission: 'MANAGER',
       });
@@ -162,7 +162,7 @@ describe('CreateUserController', () => {
         cpf: '00000000000',
         phone: '00000000005',
         email: 'test4@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birth_date: '1990-02-12',
         permission: 'MANAGER',
       });
@@ -187,7 +187,7 @@ describe('CreateUserController', () => {
         cpf: '00000000006',
         phone: '00000000006',
         email: 'test6@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birth_date: '1990-02-12',
         permission: 'ANY',
       });

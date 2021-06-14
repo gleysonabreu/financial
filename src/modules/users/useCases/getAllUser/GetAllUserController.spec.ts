@@ -90,7 +90,7 @@ describe('GetAllUserController', () => {
         cpf: '00000000002',
         phone: '00000000002',
         email: 'test@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birth_date: '1990-02-12',
         permission: 'MANAGER',
       });
