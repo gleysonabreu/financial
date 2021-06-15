@@ -10,7 +10,7 @@ async function createAdmin() {
 
   const id = uuid();
   const idPermission = uuid();
-  const password = await hash('admin');
+  const password = await hash('admin123');
 
   await connection.query(
     `INSERT INTO users (id, first_name, last_name, email, password, cpf, birth_date, phone) VALUES('${id}', 'Admin', 'Admin', 'admin@admin.com', '${password}', '00000000000', '02-16-1998', '00000000000')`,
