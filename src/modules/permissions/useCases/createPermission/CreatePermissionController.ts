@@ -10,7 +10,7 @@ class CreatePermissionController {
     const createPermissionUseCase = container.resolve(CreatePermissionsUseCase);
     const permission = await createPermissionUseCase.execute({
       userId,
-      type: Number(type),
+      type,
     });
 
     return response.json(permission);
