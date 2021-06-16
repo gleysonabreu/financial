@@ -89,4 +89,115 @@ describe('UpdateUserController', () => {
 
     expect(response.status).toBe(400);
   });
+
+  it('should not be able to update an user if email already exists', async () => {
+    const { token } = (
+      await request(app).post('/auth').send({
+        email: 'admin@admin.com',
+        password: 'admin123',
+      })
+    ).body;
+
+    await request(app)
+      .post('/users')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        first_name: 'Testing',
+        last_name: 'testing from test',
+        cpf: '00000000002',
+        phone: '00000000002',
+        email: 'test@test.com',
+        password: '1234567',
+        birth_date: '1990-02-12',
+        permission: 'MANAGER',
+      });
+
+    const response = await request(app)
+      .put('/users')
+      .send({
+        first_name: 'Administrator',
+        last_name: 'Admin',
+        email: 'test@test.com',
+        cpf: '00000000000',
+        phone: '00000000000',
+        birth_date: '1990-02-12',
+      })
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(400);
+  });
+
+  it('should not be able to update an user if phone already exists', async () => {
+    const { token } = (
+      await request(app).post('/auth').send({
+        email: 'admin@admin.com',
+        password: 'admin123',
+      })
+    ).body;
+
+    await request(app)
+      .post('/users')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        first_name: 'Testing',
+        last_name: 'testing from test',
+        cpf: '00000000003',
+        phone: '00000000003',
+        email: 'test@test.com.br',
+        password: '1234567',
+        birth_date: '1990-02-12',
+        permission: 'MANAGER',
+      });
+
+    const response = await request(app)
+      .put('/users')
+      .send({
+        first_name: 'Administrator',
+        last_name: 'Admin',
+        email: 'admin@admin.com',
+        cpf: '00000000000',
+        phone: '00000000003',
+        birth_date: '1990-02-12',
+      })
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(400);
+  });
+
+  it('should not be able to update an user if cpf already exists', async () => {
+    const { token } = (
+      await request(app).post('/auth').send({
+        email: 'admin@admin.com',
+        password: 'admin123',
+      })
+    ).body;
+
+    await request(app)
+      .post('/users')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        first_name: 'Testing',
+        last_name: 'testing from test',
+        cpf: '00000000004',
+        phone: '00000000004',
+        email: 'test@test.com.br.us',
+        password: '1234567',
+        birth_date: '1990-02-12',
+        permission: 'MANAGER',
+      });
+
+    const response = await request(app)
+      .put('/users')
+      .send({
+        first_name: 'Administrator',
+        last_name: 'Admin',
+        email: 'admin@admin.com',
+        cpf: '00000000004',
+        phone: '00000000000',
+        birth_date: '1990-02-12',
+      })
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(400);
+  });
 });

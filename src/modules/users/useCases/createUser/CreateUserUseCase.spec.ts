@@ -13,21 +13,6 @@ describe('CreateUserUseCase', () => {
     createUserUseCase = new CreateUserUseCase(usersRepository);
   });
 
-  it('should be able to create a user', async () => {
-    const response = await createUserUseCase.execute({
-      firstName: 'Testing',
-      lastName: 'Test again',
-      email: 'test@test.com',
-      password: '1234567',
-      birthDate: '1990-02-25',
-      cpf: '00000000000',
-      phone: '00000000000',
-      permission: 'ADMIN',
-    });
-
-    expect(response).toHaveProperty('id');
-  });
-
   it('should not be able to create a user if permission does not exist', async () => {
     await expect(async () => {
       await createUserUseCase.execute({
@@ -41,6 +26,21 @@ describe('CreateUserUseCase', () => {
         permission: 'Any',
       });
     }).rejects.toBeInstanceOf(CreateUserError.PermissionNotExist);
+  });
+
+  it('should be able to create a user', async () => {
+    const response = await createUserUseCase.execute({
+      firstName: 'Testing',
+      lastName: 'Test again',
+      email: 'test@test.com',
+      password: '1234567',
+      birthDate: '1990-02-25',
+      cpf: '00000000000',
+      phone: '00000000000',
+      permission: 'ADMIN',
+    });
+
+    expect(response).toHaveProperty('id');
   });
 
   it('should not be able to create a user with email already exists', async () => {
@@ -95,7 +95,7 @@ describe('CreateUserUseCase', () => {
     }).rejects.toBeInstanceOf(CreateUserError.PhoneAlreadyExists);
   });
 
-  it('should not be able to create a user with cpf already exists', async () => {
+  it('should not be able to create a user with invalid permission', async () => {
     await expect(async () => {
       await createUserUseCase.execute({
         firstName: 'Testing',

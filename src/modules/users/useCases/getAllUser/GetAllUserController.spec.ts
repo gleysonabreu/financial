@@ -108,4 +108,42 @@ describe('GetAllUserController', () => {
 
     expect(response.status).toBe(401);
   });
+
+  it('should be able to get all users by cpf', async () => {
+    const { token } = (
+      await request(app).post('/auth').send({
+        email: 'admin@admin.com',
+        password: 'admin123',
+      })
+    ).body;
+
+    const response = await request(app)
+      .get('/users')
+      .query({
+        cpf: '000',
+      })
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('should be able to get all users by first name or last name', async () => {
+    const { token } = (
+      await request(app).post('/auth').send({
+        email: 'admin@admin.com',
+        password: 'admin123',
+      })
+    ).body;
+
+    const response = await request(app)
+      .get('/users')
+      .query({
+        name: 'Admin',
+      })
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBeGreaterThanOrEqual(1);
+  });
 });

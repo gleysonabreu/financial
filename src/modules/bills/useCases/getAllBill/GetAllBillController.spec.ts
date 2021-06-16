@@ -253,4 +253,39 @@ describe('GetAllBillController', () => {
     expect(response.status).toBe(200);
     expect(response.body.length).toBeGreaterThanOrEqual(2);
   });
+
+  it('should be able to get all bills by justification', async () => {
+    const { token } = (
+      await request(app).post('/auth').send({
+        email: 'admin@admin.com',
+        password: 'admin123',
+      })
+    ).body;
+    const accountType = await request(app)
+      .post('/account-types')
+      .send({
+        name: 'test6',
+      })
+      .set('Authorization', `Bearer ${token}`);
+
+    await request(app)
+      .post('/bills')
+      .send({
+        account_type_id: accountType.body.id,
+        value: 15,
+        justification: 'justification',
+        date: '2021-10-21',
+      })
+      .set('Authorization', `Bearer ${token}`);
+
+    const response = await request(app)
+      .get('/bills')
+      .query({
+        justification: 'justification',
+      })
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBeGreaterThanOrEqual(1);
+  });
 });

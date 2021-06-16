@@ -30,14 +30,13 @@ class InMemoryAccountTypesRepository implements IAccountTypesRepository {
   }
 
   async update(accountType: AccountType): Promise<AccountType> {
-    const accountTypeUpdate = this.accountTypes.map(aT => {
-      if (aT.id === accountType.id) {
-        return accountType;
-      }
+    const findElement = this.accountTypes.findIndex(
+      aT => aT.id === accountType.id,
+    );
+    this.accountTypes[findElement].name = accountType.name;
+    this.accountTypes[findElement].createdAt = accountType.createdAt;
+    this.accountTypes[findElement].updatedAt = accountType.updatedAt;
 
-      return aT;
-    });
-    this.accountTypes = accountTypeUpdate;
     return accountType;
   }
 

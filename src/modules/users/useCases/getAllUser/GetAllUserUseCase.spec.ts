@@ -98,7 +98,7 @@ describe('GetAllUserUseCase', () => {
 
     const user2 = await usersRepository.create({
       firstName: 'Maria',
-      lastName: 'Maria',
+      lastName: 'Whs',
       email: 'test_maria@test.com',
       password: await hash('1234567'),
       birthDate: '1990-02-25',
@@ -108,9 +108,40 @@ describe('GetAllUserUseCase', () => {
     });
 
     const { users } = await getAllUserUseCase.execute({
-      name: 'goo',
-      cpf: '111',
+      name: 'Whs',
+      cpf: '000',
     });
     expect(users).toEqual([user, user2]);
+  });
+
+  it('should not be able to get all users by cpf and first/last name if not exists', async () => {
+    await usersRepository.create({
+      firstName: 'Google',
+      lastName: 'Google',
+      email: 'test@test.com',
+      password: await hash('1234567'),
+      birthDate: '1990-02-25',
+      cpf: '00000000001',
+      phone: '00000000000',
+      permission: 'ADMIN',
+    });
+
+    await usersRepository.create({
+      firstName: 'Maria',
+      lastName: 'Whs',
+      email: 'test_maria@test.com',
+      password: await hash('1234567'),
+      birthDate: '1990-02-25',
+      cpf: '11111111111',
+      phone: '11111111111',
+      permission: 'ADMIN',
+    });
+
+    const { users } = await getAllUserUseCase.execute({
+      name: 'F',
+      cpf: '333',
+    });
+    expect(users).toEqual([]);
+    expect(users.length).toBeLessThanOrEqual(0);
   });
 });

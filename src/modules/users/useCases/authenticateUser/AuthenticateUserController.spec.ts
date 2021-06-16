@@ -41,6 +41,14 @@ describe('AuthenticateUserController', () => {
     expect(response.body).toHaveProperty('token');
   });
 
+  it('should not be able to authenticate with missing fields', async () => {
+    const response = await request(app).post('/auth').send({
+      email: 'admin@admin.com',
+    });
+
+    expect(response.status).toBe(400);
+  });
+
   it('should not be able to authenticate with wrong email', async () => {
     const response = await request(app).post('/auth').send({
       email: 'wrong_email@admin.com',
@@ -55,6 +63,61 @@ describe('AuthenticateUserController', () => {
       email: 'admin@admin.com',
       password: 'wrong-password',
     });
+
+    expect(response.status).toBe(401);
+  });
+
+  it('should not be able to access an route if not admin', async () => {
+    const { token } = (
+      await request(app).post('/auth').send({
+        email: 'admin@admin.com',
+        password: 'admin123',
+      })
+    ).body;
+
+    await request(app)
+      .post('/users')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        first_name: 'Testing',
+        last_name: 'testing from test',
+        cpf: '00000000002',
+        phone: '00000000002',
+        email: 'test@test.com',
+        password: '1234567',
+        birth_date: '1990-02-12',
+        permission: 'MANAGER',
+      });
+
+    const { token: userToken, user } = (
+      await request(app).post('/auth').send({
+        email: 'test@test.com',
+        password: '1234567',
+      })
+    ).body;
+
+    const response = await request(app)
+      .get('/users')
+      .set('Authorization', `Bearer ${userToken}`);
+
+    expect(response.status).toBe(401);
+  });
+
+  it('should not be able to access an route if user does not exists', async () => {
+    const { token, user } = (
+      await request(app).post('/auth').send({
+        email: 'admin@admin.com',
+        password: 'admin123',
+      })
+    ).body;
+
+    await request(app)
+      .delete(`/users/${user.id}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    const response = await request(app)
+      .get('/users')
+      .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(401);
   });

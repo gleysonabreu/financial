@@ -93,4 +93,30 @@ describe('GetAllAccountTypeController', () => {
 
     expect(response.status).toBe(401);
   });
+
+  it('should be able to get all account types by name', async () => {
+    const { token } = (
+      await request(app).post('/auth').send({
+        email: 'admin@admin.com',
+        password: 'admin123',
+      })
+    ).body;
+
+    const accountType = await request(app)
+      .post('/account-types')
+      .send({
+        name: 'by name',
+      })
+      .set('Authorization', `Bearer ${token}`);
+
+    const response = await request(app)
+      .get('/account-types')
+      .query({
+        name: 'by name',
+      })
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual([accountType.body]);
+  });
 });

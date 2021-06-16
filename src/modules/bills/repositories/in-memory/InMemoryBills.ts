@@ -19,14 +19,11 @@ class InMemoryBills implements IBillsRepository {
   }
 
   async save(billUpdate: Bill): Promise<Bill> {
-    const bills = this.bills.map(bill => {
-      if (bill.id === billUpdate.id) {
-        return billUpdate;
-      }
+    const findElement = this.bills.findIndex(bill => bill.id === billUpdate.id);
+    this.bills[findElement].accountTypeId = billUpdate.accountTypeId;
+    this.bills[findElement].justification = billUpdate.justification;
+    this.bills[findElement].value = billUpdate.value;
 
-      return bill;
-    });
-    this.bills = bills;
     return billUpdate;
   }
 

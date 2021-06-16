@@ -38,13 +38,14 @@ export class InMemoryUsersRepository implements IUsersRepository {
   }
 
   async update(user: User): Promise<User> {
-    const users = this.users.map(us => {
-      if (us.id === user.id) {
-        return user;
-      }
-      return us;
-    });
-    this.users = users;
+    const findElement = this.users.findIndex(us => us.id === user.id);
+    this.users[findElement].firstName = user.firstName;
+    this.users[findElement].lastName = user.lastName;
+    this.users[findElement].email = user.email;
+    this.users[findElement].cpf = user.cpf;
+    this.users[findElement].phone = user.phone;
+    this.users[findElement].birthDate = user.birthDate;
+
     return user;
   }
 
@@ -60,11 +61,11 @@ export class InMemoryUsersRepository implements IUsersRepository {
           user.lastName.toLowerCase().includes(name.toLowerCase())) &&
         !cpf
       ) {
-        return user;
+        return true;
       }
 
       if (cpf && user.cpf.includes(cpf) && !name) {
-        return user;
+        return true;
       }
 
       if (
@@ -73,10 +74,10 @@ export class InMemoryUsersRepository implements IUsersRepository {
           (user.firstName.toLowerCase().includes(name.toLowerCase()) ||
             user.lastName.toLowerCase().includes(name.toLowerCase())))
       ) {
-        return user;
+        return true;
       }
 
-      return null;
+      return false;
     });
     return allUsers;
   }

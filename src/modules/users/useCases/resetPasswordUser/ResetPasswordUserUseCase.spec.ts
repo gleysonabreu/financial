@@ -40,11 +40,16 @@ describe('ResetPasswordUserUseCase', () => {
       phone: '00000000000',
     });
 
-    const userToken = await usersTokensRepository.create({
+    const { token } = await usersTokensRepository.create({
       expireDate: dateProvider.addHours(3),
       token: uuid(),
       userId: user.id,
     });
+
+    const userToken = await usersTokensRepository.findUserIdAndToken(
+      user.id,
+      token,
+    );
 
     const response = await resetPasswordUserUseCase.execute({
       password: '1234567',
