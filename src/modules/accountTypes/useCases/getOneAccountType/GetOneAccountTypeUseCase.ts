@@ -4,33 +4,25 @@ import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { inject, injectable } from 'tsyringe';
 import * as yup from 'yup';
 
-import { GetOneAccountTypeError } from './GetOneAccountTypeError';
+import { AccountTypeNotFound } from './GetOneAccountTypeError';
 import { IGetOneAccountType } from './IGetOneAccountType';
 
 @injectable()
 class GetOneAccountTypeUseCase {
   constructor(
-    @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
     @inject('AccountTypesRepository')
     private accountTypesRepository: IAccountTypesRepository,
   ) {}
 
-  async execute({ userId, id }: IGetOneAccountType): Promise<AccountType> {
+  async execute({ id }: IGetOneAccountType): Promise<AccountType> {
     const schema = yup.object().shape({
-      userId: yup.string().uuid().required(),
       id: yup.string().uuid().required(),
     });
-    await schema.validate({ userId, id }, { abortEarly: false });
-
-    const user = await this.usersRepository.findById(userId);
-    if (!user) {
-      throw new GetOneAccountTypeError.UserNotFound();
-    }
+    await schema.validate({ id }, { abortEarly: false });
 
     const accountType = await this.accountTypesRepository.findById(id);
     if (!accountType) {
-      throw new GetOneAccountTypeError.AccountTypeNotFound();
+      throw new AccountTypeNotFound();
     }
 
     return accountType;

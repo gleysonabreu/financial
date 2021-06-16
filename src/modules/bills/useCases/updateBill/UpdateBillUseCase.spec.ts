@@ -55,7 +55,7 @@ describe('UpdateBillUseCase', () => {
     });
     const bill = await billsRepository.create({
       accountTypeId: accountType.id,
-      justification: 'Test',
+      justification: 'testing testing testing',
       date: '1998-02-21',
       value: 15.5,
     });
@@ -64,7 +64,7 @@ describe('UpdateBillUseCase', () => {
       await updateBillUseCase.execute({
         accountTypeId: '33973ab3-3ab3-4eb1-ad1d-9c52b3facc1a',
         id: bill.id,
-        justification: 'Testing',
+        justification: 'testing testing testing',
         value: 10.6,
       });
     }).rejects.toBeInstanceOf(UpdateBillError.AccountTypeNotFound);

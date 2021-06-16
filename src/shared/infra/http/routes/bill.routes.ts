@@ -1,4 +1,4 @@
-import { financialEnv } from '@config/financialEnv';
+import { permissions as authorizedPermissions } from '@config/permissions';
 import { CreateBillController } from '@modules/bills/useCases/createBill/CreateBillController';
 import { DeleteBillController } from '@modules/bills/useCases/deleteBill/DeleteBillController';
 import { GetAllBillController } from '@modules/bills/useCases/getAllBill/GetAllBillController';
@@ -18,7 +18,7 @@ const getAllBillController = new GetAllBillController();
 
 const permissions = [
   ensureAuthenticated,
-  ensurePermission([financialEnv.financialAdministrativePermission]),
+  ensurePermission([authorizedPermissions.FINANCIAL]),
 ];
 billRouter.post('/', permissions, createBillController.execute);
 billRouter.get('/', ensureAuthenticated, getAllBillController.execute);

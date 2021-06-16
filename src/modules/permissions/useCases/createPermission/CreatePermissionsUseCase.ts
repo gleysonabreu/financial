@@ -1,9 +1,10 @@
-import { financialEnv } from '@config/financialEnv';
 import { Permission } from '@modules/permissions/entities/Permission';
 import { IPermissionsRepository } from '@modules/permissions/repositories/IPermissionsRepository';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { inject, injectable } from 'tsyringe';
 import * as yup from 'yup';
+
+import { validPermissions } from '@shared/utils/validPermissions';
 
 import { CreatePermissionError } from './CreatePermissionError';
 import { ICreatePermissionDTO } from './ICreatePermissionDTO';
@@ -20,17 +21,11 @@ class CreatePermissionsUseCase {
   async execute({ userId, type }: ICreatePermissionDTO): Promise<Permission> {
     const schema = yup.object().shape({
       userId: yup.string().uuid().required(),
-      type: yup.number().required(),
+      type: yup.string().required(),
     });
     await schema.validate({ userId, type }, { abortEarly: false });
 
-    const permissionsValid = [
-      financialEnv.financialAdminPermission,
-      financialEnv.financialAdministrativePermission,
-      financialEnv.financialManagerPermission,
-    ];
-
-    if (!permissionsValid.includes(type)) {
+    if (!validPermissions(type)) {
       throw new CreatePermissionError.PermissionNotExist();
     }
 

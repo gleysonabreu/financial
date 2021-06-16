@@ -2,7 +2,7 @@ import { AppError } from './AppError';
 
 class JWTTokenMissingError extends AppError {
   constructor() {
-    super('JWT token is missing!', 401);
+    super('Token not provided!', 401);
   }
 }
 

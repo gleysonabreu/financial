@@ -24,11 +24,7 @@ describe('AuthenticateUserUseCase', () => {
       birthDate: '1990-02-25',
       cpf: '00000000000',
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     const response = await authenticateUserCase.execute({
@@ -38,30 +34,6 @@ describe('AuthenticateUserUseCase', () => {
 
     expect(response).toHaveProperty('token');
     expect(response).toHaveProperty('user');
-  });
-
-  it('should not be able to authenticate with wrong password', async () => {
-    await expect(async () => {
-      await usersRepository.create({
-        firstName: 'Testing',
-        lastName: 'Test',
-        email: 'test@test.com',
-        password: await hash('1234567'),
-        birthDate: '1990-02-25',
-        cpf: '00000000000',
-        phone: '00000000000',
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
-      });
-
-      await authenticateUserCase.execute({
-        email: 'test@test.com',
-        password: '123456',
-      });
-    }).rejects.toBeInstanceOf(IncorrectEmailOrPassword);
   });
 
   it('should not be able to authenticate with wrong email', async () => {
@@ -74,16 +46,32 @@ describe('AuthenticateUserUseCase', () => {
         cpf: '00000000000',
         phone: '00000000000',
         password: await hash('1234567'),
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
 
       await authenticateUserCase.execute({
         email: 'test@test.co',
         password: '1234567',
+      });
+    }).rejects.toBeInstanceOf(IncorrectEmailOrPassword);
+  });
+
+  it('should not be able to authenticate with wrong password', async () => {
+    await expect(async () => {
+      await usersRepository.create({
+        firstName: 'Testing',
+        lastName: 'Test',
+        email: 'test@test.com',
+        password: await hash('1234567'),
+        birthDate: '1990-02-25',
+        cpf: '00000000000',
+        phone: '00000000000',
+        permission: 'ADMIN',
+      });
+
+      await authenticateUserCase.execute({
+        email: 'test@test.com',
+        password: '123456',
       });
     }).rejects.toBeInstanceOf(IncorrectEmailOrPassword);
   });

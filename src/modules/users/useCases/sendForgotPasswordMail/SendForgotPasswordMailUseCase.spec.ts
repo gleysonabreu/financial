@@ -42,11 +42,7 @@ describe('SendForgotPasswordMailUseCase', () => {
       firstName: 'Testing',
       lastName: 'Test',
       password: await hash('1234567'),
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
       phone: '00000000000',
     });
 
@@ -71,11 +67,7 @@ describe('SendForgotPasswordMailUseCase', () => {
       firstName: 'Testing',
       lastName: 'Test',
       password: await hash('1234567'),
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
       phone: '00000000000',
     });
 

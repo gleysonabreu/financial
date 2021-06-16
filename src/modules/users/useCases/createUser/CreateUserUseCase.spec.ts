@@ -1,8 +1,6 @@
 import { InMemoryUsersRepository } from '@modules/users/repositories/in-memory/InMemoryUsersRepository';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 
-import { hash } from '@shared/services/password';
-
 import { CreateUserError } from './CreateUserError';
 import { CreateUserUseCase } from './CreateUserUseCase';
 
@@ -18,52 +16,55 @@ describe('CreateUserUseCase', () => {
   it('should be able to create a user', async () => {
     const response = await createUserUseCase.execute({
       firstName: 'Testing',
-      lastName: 'Test',
+      lastName: 'Test again',
       email: 'test@test.com',
-      password: await hash('1234567'),
+      password: '1234567',
       birthDate: '1990-02-25',
       cpf: '00000000000',
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     expect(response).toHaveProperty('id');
+  });
+
+  it('should not be able to create a user if permission does not exist', async () => {
+    await expect(async () => {
+      await createUserUseCase.execute({
+        firstName: 'Testing',
+        lastName: 'Test again',
+        email: 'test@test.com',
+        password: '1234567',
+        birthDate: '1990-02-25',
+        cpf: '00000000000',
+        phone: '00000000000',
+        permission: 'Any',
+      });
+    }).rejects.toBeInstanceOf(CreateUserError.PermissionNotExist);
   });
 
   it('should not be able to create a user with email already exists', async () => {
     await expect(async () => {
       await createUserUseCase.execute({
         firstName: 'Testing',
-        lastName: 'Test',
+        lastName: 'Test again',
         email: 'test@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birthDate: '1990-02-25',
         cpf: '00000000000',
         phone: '00000000000',
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
 
       await createUserUseCase.execute({
         firstName: 'Testing',
-        lastName: 'Test',
+        lastName: 'Test again',
         email: 'test@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birthDate: '1990-02-25',
         cpf: '00000000001',
         phone: '00000000001',
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
     }).rejects.toBeInstanceOf(CreateUserError.EmailAlreadyExists);
   });
@@ -72,32 +73,24 @@ describe('CreateUserUseCase', () => {
     await expect(async () => {
       await createUserUseCase.execute({
         firstName: 'Testing',
-        lastName: 'Test',
+        lastName: 'Test again',
         email: 'test@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birthDate: '1990-02-25',
         cpf: '00000000000',
         phone: '00000000000',
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
 
       await createUserUseCase.execute({
         firstName: 'Testing',
-        lastName: 'Test',
+        lastName: 'Test again',
         email: 'test1@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birthDate: '1990-02-25',
         cpf: '00000000001',
         phone: '00000000000',
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
     }).rejects.toBeInstanceOf(CreateUserError.PhoneAlreadyExists);
   });
@@ -106,32 +99,24 @@ describe('CreateUserUseCase', () => {
     await expect(async () => {
       await createUserUseCase.execute({
         firstName: 'Testing',
-        lastName: 'Test',
+        lastName: 'Test again',
         email: 'test@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birthDate: '1990-02-25',
         cpf: '00000000000',
         phone: '00000000000',
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
 
       await createUserUseCase.execute({
         firstName: 'Testing',
-        lastName: 'Test',
+        lastName: 'Test again',
         email: 'test1@test.com',
-        password: await hash('1234567'),
+        password: '1234567',
         birthDate: '1990-02-25',
         cpf: '00000000000',
         phone: '00000000002',
-        permissions: [
-          {
-            type: 1,
-          },
-        ],
+        permission: 'ADMIN',
       });
     }).rejects.toBeInstanceOf(CreateUserError.CpfAlreadyExists);
   });

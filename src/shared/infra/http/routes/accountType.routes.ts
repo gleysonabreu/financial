@@ -1,4 +1,4 @@
-import { financialEnv } from '@config/financialEnv';
+import { permissions } from '@config/permissions';
 import { CreateAccountTypeController } from '@modules/accountTypes/useCases/createAccountType/CreateAccountTypeController';
 import { DeleteAccountTypeController } from '@modules/accountTypes/useCases/deleteAccountType/DeleteAccountTypeController';
 import { GetAllAccountTypeController } from '@modules/accountTypes/useCases/getAllAccountType/GetAllAccountTypeController';
@@ -17,29 +17,36 @@ const updateAccountTypeController = new UpdateAccountTypeController();
 const getAllAccountTypeController = new GetAllAccountTypeController();
 const getOneAccountTypeController = new GetOneAccountTypeController();
 
-const permissions = [
+const permissionsRoutes = [
   ensureAuthenticated,
-  ensurePermission([financialEnv.financialAdministrativePermission]),
+  ensurePermission([permissions.FINANCIAL]),
 ];
 
-accountTypeRouter.post('/', permissions, createAccountTypeController.execute);
+accountTypeRouter.post(
+  '/',
+  permissionsRoutes,
+  createAccountTypeController.execute,
+);
 accountTypeRouter.delete(
   '/:id',
-  permissions,
+  permissionsRoutes,
   deleteAccountTypeController.execute,
 );
-accountTypeRouter.put('/:id', permissions, updateAccountTypeController.execute);
+accountTypeRouter.put(
+  '/:id',
+  permissionsRoutes,
+  updateAccountTypeController.execute,
+);
 accountTypeRouter.get(
   '/',
-  [
-    ensureAuthenticated,
-    ensurePermission([
-      financialEnv.financialAdministrativePermission,
-      financialEnv.financialManagerPermission,
-    ]),
-  ],
+  ensureAuthenticated,
+  ensurePermission([permissions.FINANCIAL, permissions.MANAGER]),
   getAllAccountTypeController.execute,
 );
-accountTypeRouter.get('/:id', permissions, getOneAccountTypeController.execute);
+accountTypeRouter.get(
+  '/:id',
+  permissionsRoutes,
+  getOneAccountTypeController.execute,
+);
 
 export { accountTypeRouter };

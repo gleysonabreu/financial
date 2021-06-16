@@ -5,7 +5,6 @@ import { UpdateAccountTypeUseCase } from './UpdateAccountTypeUseCase';
 
 class UpdateAccountTypeController {
   async execute(request: Request, response: Response): Promise<Response> {
-    const { id: userId } = request.user;
     const { id } = request.params;
     const { name } = request.body;
 
@@ -15,7 +14,6 @@ class UpdateAccountTypeController {
     const updateAccountType = await updateAccountTypeUseCase.execute({
       id,
       name,
-      userId,
     });
 
     return response.json(updateAccountType);

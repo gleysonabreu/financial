@@ -24,11 +24,7 @@ describe('ShowUserProfileUseCase', () => {
       cpf: '00000000000',
       phone: '00000000000',
       password: await hash('1234567'),
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     const response = await showUserUseCase.execute(user.id);

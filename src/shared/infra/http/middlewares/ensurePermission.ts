@@ -1,18 +1,15 @@
-import { financialEnv } from '@config/financialEnv';
+import { permissions } from '@config/permissions';
 import { NextFunction, Request, Response } from 'express';
 
 import { PermissionError } from '../../../errors/PermissionError';
 
-const ensurePermission = (permissions: number[] = []) => {
+const ensurePermission = (authorizedPermissions: string[] = []) => {
   return async (
     request: Request,
     _response: Response,
     next: NextFunction,
   ): Promise<void> => {
-    const allPermissions = [
-      financialEnv.financialAdminPermission,
-      ...permissions,
-    ];
+    const allPermissions = [permissions.ADMIN, ...authorizedPermissions];
 
     const verifyPermission = request.user.roles.some(role =>
       allPermissions.includes(role),

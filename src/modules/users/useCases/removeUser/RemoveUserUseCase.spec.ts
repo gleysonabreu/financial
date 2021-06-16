@@ -24,11 +24,7 @@ describe('RemoveUserUseCase', () => {
       birthDate: '1990-02-25',
       cpf: '00000000000',
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     const response = await removeUserUseCase.execute({ userId: user.id });

@@ -5,6 +5,7 @@ import { inject, injectable } from 'tsyringe';
 import * as yup from 'yup';
 
 import { hash } from '@shared/services/password';
+import { validPermissions } from '@shared/utils/validPermissions';
 
 import { CreateUserError } from './CreateUserError';
 import { ICreateUserDTO } from './ICreateUserDTO';
@@ -21,24 +22,17 @@ class CreateUserUseCase {
     password,
     firstName,
     lastName,
-    permissions,
+    permission,
     birthDate,
     cpf,
     phone,
   }: ICreateUserDTO): Promise<User> {
     const schema = yup.object().shape({
-      email: yup.string().email().required(),
-      password: yup.string().required(),
-      firstName: yup.string().required(),
-      lastName: yup.string().required(),
-      permissions: yup
-        .array()
-        .of(
-          yup.object().shape({
-            type: yup.number().required(),
-          }),
-        )
-        .required(),
+      email: yup.string().min(10).email().required(),
+      password: yup.string().min(6).required(),
+      firstName: yup.string().min(5).required(),
+      lastName: yup.string().min(5).required(),
+      permission: yup.string().required(),
       birthDate: yup
         .string()
         .test(
@@ -57,13 +51,17 @@ class CreateUserUseCase {
         password,
         firstName,
         lastName,
-        permissions,
+        permission,
         birthDate,
         cpf,
         phone,
       },
       { abortEarly: false },
     );
+
+    if (!validPermissions(permission)) {
+      throw new CreateUserError.PermissionNotExist();
+    }
 
     const emailAlreadyExists = await this.usersRepository.findByEmail(email);
     if (emailAlreadyExists) {
@@ -89,7 +87,7 @@ class CreateUserUseCase {
       birthDate,
       cpf,
       phone,
-      permissions,
+      permission,
     });
 
     return user;

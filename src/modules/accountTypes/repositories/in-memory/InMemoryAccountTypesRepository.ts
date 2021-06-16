@@ -1,5 +1,6 @@
 import { AccountType } from '@modules/accountTypes/entities/AccountType';
 import { ICreateAccountTypeDTO } from '@modules/accountTypes/useCases/createAccountType/CreateAccountTypeDTO';
+import { IGetAllAccountTypeDTO } from '@modules/accountTypes/useCases/getAllAccountType/IGetAllAccountTypeDTO';
 
 import { IAccountTypesRepository } from '../IAccountTypesRepository';
 
@@ -40,8 +41,16 @@ class InMemoryAccountTypesRepository implements IAccountTypesRepository {
     return accountType;
   }
 
-  async findAll(): Promise<AccountType[]> {
-    return this.accountTypes;
+  async findAll({ name }: IGetAllAccountTypeDTO): Promise<AccountType[]> {
+    if (!name) {
+      return this.accountTypes;
+    }
+
+    const allAccountTypes = this.accountTypes.filter(accountType =>
+      accountType.name.toLocaleLowerCase().includes(name.toLocaleLowerCase()),
+    );
+
+    return allAccountTypes;
   }
 }
 

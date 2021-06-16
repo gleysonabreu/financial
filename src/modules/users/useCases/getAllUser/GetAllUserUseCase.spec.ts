@@ -23,11 +23,7 @@ describe('GetAllUserUseCase', () => {
       birthDate: '1990-02-25',
       cpf: '00000000000',
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     const { users } = await getAllUserUseCase.execute({});
@@ -43,11 +39,7 @@ describe('GetAllUserUseCase', () => {
       birthDate: '1990-02-25',
       cpf: '00000000000',
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     const { users } = await getAllUserUseCase.execute({
@@ -65,11 +57,7 @@ describe('GetAllUserUseCase', () => {
       birthDate: '1990-02-25',
       cpf: '00000000000',
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     const { users } = await getAllUserUseCase.execute({
@@ -87,11 +75,7 @@ describe('GetAllUserUseCase', () => {
       birthDate: '1990-02-25',
       cpf: '00000000001',
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     const { users } = await getAllUserUseCase.execute({
@@ -109,11 +93,7 @@ describe('GetAllUserUseCase', () => {
       birthDate: '1990-02-25',
       cpf: '00000000001',
       phone: '00000000000',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     const user2 = await usersRepository.create({
@@ -124,11 +104,7 @@ describe('GetAllUserUseCase', () => {
       birthDate: '1990-02-25',
       cpf: '11111111111',
       phone: '11111111111',
-      permissions: [
-        {
-          type: 1,
-        },
-      ],
+      permission: 'ADMIN',
     });
 
     const { users } = await getAllUserUseCase.execute({

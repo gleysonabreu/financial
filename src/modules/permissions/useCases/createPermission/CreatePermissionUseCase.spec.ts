@@ -30,18 +30,18 @@ describe('CreatePermissionUseCase', () => {
       cpf: '00000000000',
       phone: '00000000000',
       password: await hash('1234567'),
-      permissions: [],
+      permission: 'ADMIN',
     });
 
     const response = await createPermissionUseCase.execute({
-      type: 1,
+      type: 'ADMIN',
       userId: user.id,
     });
 
     expect(response).toEqual(
       expect.objectContaining({
         userId: user.id,
-        type: 1,
+        type: 'ADMIN',
       }),
     );
   });
@@ -55,12 +55,12 @@ describe('CreatePermissionUseCase', () => {
       cpf: '00000000000',
       phone: '00000000000',
       password: await hash('1234567'),
-      permissions: [],
+      permission: 'FINANCIAL',
     });
 
     await expect(async () => {
       await createPermissionUseCase.execute({
-        type: 4,
+        type: '4',
         userId: user.id,
       });
     }).rejects.toBeInstanceOf(CreatePermissionError.PermissionNotExist);
@@ -70,7 +70,7 @@ describe('CreatePermissionUseCase', () => {
     await expect(async () => {
       await createPermissionUseCase.execute({
         userId: '45eb8c2f-6f67-4325-9a4a-adfd26b723bb',
-        type: 1,
+        type: 'ADMIN',
       });
     }).rejects.toBeInstanceOf(CreatePermissionError.UserNotFound);
   });
@@ -85,16 +85,16 @@ describe('CreatePermissionUseCase', () => {
         cpf: '00000000000',
         phone: '00000000000',
         password: await hash('1234567'),
-        permissions: [],
+        permission: 'FINANCIAL',
       });
 
       await createPermissionUseCase.execute({
         userId: user.id,
-        type: 1,
+        type: 'ADMIN',
       });
       await createPermissionUseCase.execute({
         userId: user.id,
-        type: 1,
+        type: 'ADMIN',
       });
     }).rejects.toBeInstanceOf(
       CreatePermissionError.PermissionAlreadyExistsError,

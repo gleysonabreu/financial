@@ -5,14 +5,12 @@ import { GetOneAccountTypeUseCase } from './GetOneAccountTypeUseCase';
 
 class GetOneAccountTypeController {
   async execute(request: Request, response: Response): Promise<Response> {
-    const { id: userId } = request.user;
     const { id } = request.params;
 
     const getOneAccountTypeUseCase = container.resolve(
       GetOneAccountTypeUseCase,
     );
     const accountType = await getOneAccountTypeUseCase.execute({
-      userId,
       id,
     });
 

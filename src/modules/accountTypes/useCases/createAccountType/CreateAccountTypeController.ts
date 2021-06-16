@@ -5,18 +5,16 @@ import { CreateAccountTypeUseCase } from './CreateAccountTypeUseCase';
 
 class CreateAccountTypeController {
   async execute(request: Request, response: Response): Promise<Response> {
-    const { id: userId } = request.user;
     const { name } = request.body;
 
     const createAccountTypeUseCase = container.resolve(
       CreateAccountTypeUseCase,
     );
-    await createAccountTypeUseCase.execute({
+    const accountType = await createAccountTypeUseCase.execute({
       name,
-      userId,
     });
 
-    return response.status(204).send();
+    return response.json(accountType);
   }
 }
 
