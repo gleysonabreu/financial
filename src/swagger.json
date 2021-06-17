@@ -933,6 +933,316 @@
           }
         }
       }
+    },
+    "/account-types": {
+      "post": {
+        "tags": ["Account Type"],
+        "summary": "Create new account type",
+        "description": "Only the admin and financial can create new account type",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "test"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": {
+                    "id": "8b4e35ed-a769-4415-ac61-318de4d19cb6",
+                    "name": "test",
+                    "updated_at": "2021-06-05T20:58:16.543Z",
+                    "created_at": "2021-06-05T20:58:16.543Z"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized user"
+          },
+          "400": {
+            "description": "Validation fails or Account type already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Account Type"],
+        "summary": "Get all account type",
+        "description": "Get all account type if authenticated",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "description": "Page",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "per_page",
+            "description": "Items per page",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "name",
+            "description": "Account type name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": [
+                    {
+                      "id": "5d63ceed-3409-49a3-b3d8-0fbd8a3e101d",
+                      "name": "test",
+                      "createdAt": "2021-06-10T01:11:28.291Z",
+                      "updatedAt": "2021-06-10T01:11:28.291Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      }
+    },
+    "/account-types/{id}": {
+      "delete": {
+        "tags": ["Account Type"],
+        "summary": "Get one account type",
+        "description": "Only the admin and financial can get one account type",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Account type id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized user"
+          },
+          "400": {
+            "description": "Validation fails or Account type not found"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Account Type"],
+        "summary": "Get one account type",
+        "description": "Only the admin and financial can get one account type",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Account type id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": {
+                    "id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                    "name": "test",
+                    "createdAt": "2021-06-06T17:58:10.965Z",
+                    "updatedAt": "2021-06-06T17:58:10.965Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation fails or Account type does not exists"
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Account Type"],
+        "summary": "Update account type",
+        "description": "Only the admin and financial can update an account type",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Account type id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "testing"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": {
+                    "id": "87cf286d-3c7b-4a13-8152-4e27b10a4579",
+                    "name": "testing",
+                    "createdAt": "2021-06-07T17:24:31.756Z",
+                    "updatedAt": "2021-06-17T20:02:40.456Z"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized user"
+          },
+          "400": {
+            "description": "Validation fails, Account type not found or Account type name already exists"
+          }
+        }
+      }
     }
   },
   "components": {
