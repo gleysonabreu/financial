@@ -3,9 +3,11 @@ import 'express-async-errors';
 import upload from '@config/upload';
 import cors from 'cors';
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
 
 import { HandleAppError } from '@shared/errors/HandleAppError';
 
+import swaggerFile from '../../../swagger.json';
 import connection from '../../database/connection';
 import '../../container';
 import { router } from './routes';
@@ -18,6 +20,7 @@ app.use(
   `/${process.env.STORAGE_FOLDER}`,
   express.static(`${upload.tmpFolder}/${process.env.STORAGE_FOLDER}`),
 );
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(router);
 app.use(HandleAppError);
 export { app };
