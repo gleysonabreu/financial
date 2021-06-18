@@ -25,12 +25,12 @@ class UpdateUserUseCase {
   }: IUpdateUserDTO): Promise<User> {
     const schema = yup.object().shape({
       email: yup.string().min(10).email().required(),
-      firstName: yup.string().min(5).required(),
-      lastName: yup.string().min(5).required(),
+      first_name: yup.string().min(5).required(),
+      last_name: yup.string().min(5).required(),
       id: yup.string().uuid().required(),
       cpf: yup.string().min(11).max(11).required(),
       phone: yup.string().min(11).max(11).required(),
-      birthDate: yup
+      birth_date: yup
         .string()
         .test(
           'Date of Birth',
@@ -43,12 +43,12 @@ class UpdateUserUseCase {
     await schema.validate(
       {
         email,
-        firstName,
-        lastName,
+        first_name: firstName,
+        last_name: lastName,
         id,
         cpf,
         phone,
-        birthDate,
+        birth_date: birthDate,
       },
       { abortEarly: false },
     );

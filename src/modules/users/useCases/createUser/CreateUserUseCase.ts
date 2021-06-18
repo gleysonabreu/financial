@@ -30,10 +30,10 @@ class CreateUserUseCase {
     const schema = yup.object().shape({
       email: yup.string().min(10).email().required(),
       password: yup.string().min(6).required(),
-      firstName: yup.string().min(5).required(),
-      lastName: yup.string().min(5).required(),
+      first_name: yup.string().min(5).required(),
+      last_name: yup.string().min(5).required(),
       permission: yup.string().required(),
-      birthDate: yup
+      birth_date: yup
         .string()
         .test(
           'Date of Birth',
@@ -49,10 +49,10 @@ class CreateUserUseCase {
       {
         email,
         password,
-        firstName,
-        lastName,
+        first_name: firstName,
+        last_name: lastName,
         permission,
-        birthDate,
+        birth_date: birthDate,
         cpf,
         phone,
       },

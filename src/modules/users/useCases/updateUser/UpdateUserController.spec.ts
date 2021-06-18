@@ -52,7 +52,7 @@ describe('UpdateUserController', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(200);
-    expect(response.body.firstName).toEqual('Administrator');
+    expect(response.body.first_name).toEqual('Administrator');
   });
 
   it('should not be able to update an user without authenticate', async () => {

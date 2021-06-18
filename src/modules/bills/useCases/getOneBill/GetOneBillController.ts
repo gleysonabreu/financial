@@ -1,3 +1,4 @@
+import { BillMapper } from '@modules/bills/mappers/BillMapper';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -10,7 +11,8 @@ class GetOneBillController {
     const getOneBillUseCase = container.resolve(GetOneBillUseCase);
     const bill = await getOneBillUseCase.execute({ id });
 
-    return response.json(bill);
+    const billView = BillMapper.toDTO(bill);
+    return response.json(billView);
   }
 }
 

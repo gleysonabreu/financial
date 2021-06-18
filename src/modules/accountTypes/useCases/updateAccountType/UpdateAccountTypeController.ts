@@ -1,3 +1,4 @@
+import { AccountTypeMapper } from '@modules/accountTypes/mappers/AccountTypeMapper';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -16,7 +17,8 @@ class UpdateAccountTypeController {
       name,
     });
 
-    return response.json(updateAccountType);
+    const accountTypeView = AccountTypeMapper.toDTO(updateAccountType);
+    return response.json(accountTypeView);
   }
 }
 

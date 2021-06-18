@@ -24,12 +24,12 @@ class UpdateBillUseCase {
   }: IUpdateBillDTO): Promise<Bill> {
     const schema = yup.object().shape({
       id: yup.string().uuid().required(),
-      accountTypeId: yup.string().uuid().required(),
+      account_type_id: yup.string().uuid().required(),
       justification: yup.string().min(10).required(),
       value: yup.number().required(),
     });
     await schema.validate(
-      { id, accountTypeId, justification, value },
+      { id, account_type_id: accountTypeId, justification, value },
       { abortEarly: false },
     );
 

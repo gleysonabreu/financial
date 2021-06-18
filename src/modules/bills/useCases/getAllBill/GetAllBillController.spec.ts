@@ -54,7 +54,6 @@ describe('GetAllBillController', () => {
         date: '1998-02-21',
       })
       .set('Authorization', `Bearer ${token}`);
-
     const response = await request(app)
       .get('/bills')
       .set('Authorization', `Bearer ${token}`);

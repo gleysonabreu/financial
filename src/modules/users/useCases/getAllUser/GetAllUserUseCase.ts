@@ -21,14 +21,17 @@ class GetAllUserUseCase {
     const schema = yup.object().shape({
       cpf: yup.string(),
       name: yup.string(),
-      perPage: yup.number(),
+      per_page: yup.number(),
       page: yup.number(),
     });
 
     const perPage = take || 0;
     const page = skip ? (skip - 1) * perPage : 0;
 
-    await schema.validate({ cpf, name, perPage, page }, { abortEarly: false });
+    await schema.validate(
+      { cpf, name, per_page: perPage, page },
+      { abortEarly: false },
+    );
 
     const users = await this.usersRepository.findAll({
       skip: page,

@@ -1,3 +1,4 @@
+import { AccountTypeMapper } from '@modules/accountTypes/mappers/AccountTypeMapper';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -17,7 +18,9 @@ class GetAllAccountTypeController {
     );
 
     response.header('X-Total-Count', `${totalAccountTypes}`);
-    return response.json(accountTypes);
+
+    const accountTypesView = AccountTypeMapper.toMany(accountTypes);
+    return response.json(accountTypesView);
   }
 }
 

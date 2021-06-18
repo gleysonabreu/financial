@@ -24,7 +24,7 @@ class CreateBillUseCase {
     date,
   }: ICreateBillDTO): Promise<Bill> {
     const schema = yup.object().shape({
-      accountTypeId: yup.string().uuid().required(),
+      account_type_id: yup.string().uuid().required(),
       justification: yup.string().min(10).required(),
       value: yup.number().required(),
       date: yup
@@ -38,7 +38,7 @@ class CreateBillUseCase {
         ),
     });
     await schema.validate(
-      { accountTypeId, value, justification, date },
+      { account_type_id: accountTypeId, value, justification, date },
       { abortEarly: false },
     );
 

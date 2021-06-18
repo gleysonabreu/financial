@@ -1,14 +1,12 @@
-import { User } from '@modules/users/entities/User';
-
 interface IAuthenticateUserResponseDTO {
   token: string;
   user: {
     id: string;
     email: string;
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     avatar: string;
-    avatarUrl: string;
+    avatar_url: string;
   };
   permissions: string[];
 }

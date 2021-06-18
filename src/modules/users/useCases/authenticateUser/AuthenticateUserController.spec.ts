@@ -89,7 +89,7 @@ describe('AuthenticateUserController', () => {
         permission: 'MANAGER',
       });
 
-    const { token: userToken, user } = (
+    const { token: userToken } = (
       await request(app).post('/auth').send({
         email: 'test@test.com',
         password: '1234567',

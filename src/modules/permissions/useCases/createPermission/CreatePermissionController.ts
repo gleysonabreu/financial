@@ -1,3 +1,4 @@
+import { PermissionMapper } from '@modules/permissions/mappers/PermissionMapper';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -13,7 +14,8 @@ class CreatePermissionController {
       type,
     });
 
-    return response.json(permission);
+    const permissionView = PermissionMapper.toDTO(permission);
+    return response.json(permissionView);
   }
 }
 

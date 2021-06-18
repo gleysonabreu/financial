@@ -1,3 +1,4 @@
+import { BillMapper } from '@modules/bills/mappers/BillMapper';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -25,7 +26,9 @@ class GetAllBillController {
     });
 
     response.header('X-Total-Count', `${totalBills}`);
-    return response.json(bills);
+
+    const billsView = BillMapper.toMany(bills);
+    return response.json(billsView);
   }
 }
 

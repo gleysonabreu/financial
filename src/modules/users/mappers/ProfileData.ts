@@ -4,17 +4,23 @@ import { User } from '../entities/User';
 
 interface IResponse {
   id: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   cpf: string;
-  birthDate: string;
+  birth_date: string;
   phone: string;
   avatar: string;
-  avatarUrl: string;
-  permissions: Permission[];
-  createdAt: Date;
-  updatedAt: Date;
+  avatar_url: string;
+  permissions: {
+    id: string;
+    user_id: string;
+    type: string;
+    created_at: Date;
+    updated_at: Date;
+  }[];
+  created_at: Date;
+  updated_at: Date;
 }
 
 class ProfileData {
@@ -46,17 +52,25 @@ class ProfileData {
   }: User): IResponse {
     return {
       id,
-      firstName,
-      lastName,
+      first_name: firstName,
+      last_name: lastName,
       email,
       cpf,
-      birthDate,
+      birth_date: birthDate,
       phone,
       avatar,
-      avatarUrl: this.convertToUrl(avatar),
-      permissions,
-      createdAt,
-      updatedAt,
+      avatar_url: this.convertToUrl(avatar),
+      permissions: permissions?.map(permission => {
+        return {
+          id: permission.id,
+          user_id: permission.userId,
+          type: permission.type,
+          created_at: permission.createdAt,
+          updated_at: permission.updatedAt,
+        };
+      }),
+      created_at: createdAt,
+      updated_at: updatedAt,
     };
   }
 }

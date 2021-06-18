@@ -69,10 +69,10 @@ class GetAllBillUseCase {
 
     await schema.validate(
       {
-        accountTypeId,
+        account_type_id: accountTypeId,
         justification,
         page: skip,
-        perPage: take,
+        per_page: take,
         date_start: dateStart,
         date_finish: dateFinish,
       },

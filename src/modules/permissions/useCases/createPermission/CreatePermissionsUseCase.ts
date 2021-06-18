@@ -20,10 +20,10 @@ class CreatePermissionsUseCase {
 
   async execute({ userId, type }: ICreatePermissionDTO): Promise<Permission> {
     const schema = yup.object().shape({
-      userId: yup.string().uuid().required(),
+      user_id: yup.string().uuid().required(),
       type: yup.string().required(),
     });
-    await schema.validate({ userId, type }, { abortEarly: false });
+    await schema.validate({ user_id: userId, type }, { abortEarly: false });
 
     if (!validPermissions(type)) {
       throw new CreatePermissionError.PermissionNotExist();

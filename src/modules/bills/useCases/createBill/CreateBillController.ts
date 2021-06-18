@@ -1,3 +1,4 @@
+import { BillMapper } from '@modules/bills/mappers/BillMapper';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -20,7 +21,8 @@ class CreateBillController {
       date,
     });
 
-    return response.json(bill);
+    const billView = BillMapper.toDTO(bill);
+    return response.json(billView);
   }
 }
 
