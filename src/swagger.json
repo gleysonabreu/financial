@@ -1,0 +1,1709 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Financial Documentation",
+    "description": "This is an API Financial",
+    "version": "1.1.0",
+    "contact": {
+      "email": "gleyson_datu@hotmail.com"
+    }
+  },
+  "paths": {
+    "/auth": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Authenticate user",
+        "description": "Any user can authenticate to the system.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "required": true
+                  }
+                },
+                "example": {
+                  "email": "admin@admin.com",
+                  "password": "admin123"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Auth created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "first_name": {
+                          "type": "string"
+                        },
+                        "last_name": {
+                          "type": "string"
+                        },
+                        "avatar": {
+                          "type": "string"
+                        },
+                        "avatar_url": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    },
+                    "permissions": {
+                      "type": "array"
+                    }
+                  },
+                  "example":{
+                    "user": {
+                      "id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                      "email": "admin@admin.com",
+                      "firstName": "Admin",
+                      "lastName": "Admin",
+                      "avatar": "815c6884c6fbe3ac1179ff4da04667b5-1623246339569-953f78117154041.607029e499ea1.jpg",
+                      "avatar_url": "http://localhost:3333/avatar/815c6884c6fbe3ac1179ff4da04667b5-1623246339569-953f78117154041.607029e499ea1.jpg"
+                    },
+                    "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiYmM0NDc2NWQtYWIxMy00ZDYyLTg4YWYtZjE3M2U0ZDhiMDdlIiwicm9sZXMiOlsiQURNSU4iXX0sImlhdCI6MTYyMzg4NzY1MSwiZXhwIjoxNjIzOTc0MDUxLCJzdWIiOiJiYzQ0NzY1ZC1hYjEzLTRkNjItODhhZi1mMTczZTRkOGIwN2UifQ.Z-vd5sbcINL6LvqYT0eP0Vjh-8VBdH67DYGqflL2z8st8MQODNSYdc30Rn3TYFct-jm1CSWv8Tp57jfswxH98Pqu9h5mGDtq4fSyJWmuWINkLV4uz2zXmlzshhJovVBTgQr9C6tHwe-fqU67vre7bDGp5beUHcz8CuzsAlteQslPCD7XTPPShh_7yuia1m_AdUgkvotgPrYbwZyCMXfOhz2h4ef2F5Hyo9q7Teq2O2dlX7FCSbiAyVgQsG_O4seXrXK_d_NpNa1XPQch731Z_Axjxmin18DjtODCQJZvV9XrUA_oLfzl-UVOAxOx55gQ5kI4lnBZxUBMPQCWLcgzPg",
+                    "permissions": [
+                      "ADMIN"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Email or password invalid"
+          },
+          "400": {
+            "description": "Validation fails"
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Create an user",
+        "description": "Only the admin can create new user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password":  {
+                    "type": "string"
+                  },
+                  "first_name":  {
+                    "type": "string"
+                  },
+                  "last_name":  {
+                    "type": "string"
+                  },
+                  "permission":  {
+                    "type": "string"
+                  },
+                  "birth_date":  {
+                    "type": "Date"
+                  },
+                  "cpf":  {
+                    "type": "string"
+                  },
+                  "phone":  {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "test@admin.com",
+                  "password": "1234567",
+                  "first_name": "Testing fail",
+                  "last_name": "Testing success",
+                  "permission": "ADMIN",
+                  "birth_date": "1998-02-16",
+                  "cpf": "00000000000",
+                  "phone": "00000000000"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Token not provided"
+          },
+          "400": {
+            "description": "Validation fails or Email/CPF/PHONE already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["User"],
+        "summary": "Get all users",
+        "description": "Only the admin can get all users",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "cpf",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "first_name": {
+                      "type": "string"
+                    },
+                    "last_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "cpf": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "avatar": {
+                      "type": "string"
+                    },
+                    "avatar_url": {
+                      "type": "string"
+                    },
+                    "birth_date": {
+                      "type": "Date"
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  }
+                  },
+                  "example": [
+                    {
+                      "id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                      "first_name": "Testing",
+                      "last_name": "Test",
+                      "email": "admin@admin.com",
+                      "cpf": "00000000000",
+                      "phone": "00000000000",
+                      "avatar": "815c6884c6fbe3ac1179ff4da04667b5-1623246339569-953f78117154041.607029e499ea1.jpg",
+                      "avatar_url": "http://localhost:3333/avatar/815c6884c6fbe3ac1179ff4da04667b5-1623246339569-953f78117154041.607029e499ea1.jpg",
+                      "birth_date": "1998-02-16",
+                      "created_at": "2021-06-05T20:58:16.543Z",
+                      "updated_at": "2021-06-05T20:58:16.543Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized user"
+          },
+          "400": {
+            "description": "Validation fails"
+          }
+        }
+      },
+      "put": {
+        "tags": ["User"],
+        "summary": "Update user",
+        "description": "Any authenticated user can update their profile",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "first_name":  {
+                    "type": "string"
+                  },
+                  "last_name":  {
+                    "type": "string"
+                  },
+                  "birth_date":  {
+                    "type": "Date"
+                  },
+                  "cpf":  {
+                    "type": "string"
+                  },
+                  "phone":  {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "test@admin.com",
+                  "first_name": "Testing fail",
+                  "last_name": "Testing success",
+                  "birth_date": "1998-02-16",
+                  "cpf": "00000000000",
+                  "phone": "00000000000"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "first_name": {
+                      "type": "string"
+                    },
+                    "last_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "cpf": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "avatar": {
+                      "type": "string"
+                    },
+                    "avatar_url": {
+                      "type": "string"
+                    },
+                    "birth_date": {
+                      "type": "Date"
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    },
+                    "permissions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                  },
+                  "example": {
+                      "id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                      "first_name": "Testing",
+                      "last_name": "Test",
+                      "email": "admin@admin.com",
+                      "cpf": "00000000000",
+                      "phone": "00000000000",
+                      "avatar": "815c6884c6fbe3ac1179ff4da04667b5-1623246339569-953f78117154041.607029e499ea1.jpg",
+                      "avatar_url": "http://localhost:3333/avatar/815c6884c6fbe3ac1179ff4da04667b5-1623246339569-953f78117154041.607029e499ea1.jpg",
+                      "birth_date": "1998-02-16",
+                      "created_at": "2021-06-05T20:58:16.543Z",
+                      "updated_at": "2021-06-05T20:58:16.543Z",
+                      "permissions": [
+                        {
+                          "id": "8b4e35ed-a769-4415-ac61-318de4d19cb6",
+                          "user_id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                          "type": "ADMIN",
+                          "created_at": "2021-06-05T20:58:16.590Z",
+                          "updated_at": "2021-06-05T20:58:16.590Z"
+                        }
+                      ]
+                  }
+
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token not provided"
+          },
+          "400": {
+            "description": "Validation fails, Email/CPF/PHONE already exists or User not found"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get one user",
+        "description": "Only the admin can get one user info",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized user"
+          },
+          "400": {
+            "description": "Validation fails"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "first_name": {
+                      "type": "string"
+                    },
+                    "last_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "cpf": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "avatar": {
+                      "type": "string"
+                    },
+                    "avatar_url": {
+                      "type": "string"
+                    },
+                    "birth_date": {
+                      "type": "Date"
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    },
+                    "permissions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                  },
+                  "example": {
+                      "id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                      "first_name": "Testing",
+                      "last_name": "Test",
+                      "email": "admin@admin.com",
+                      "cpf": "00000000000",
+                      "phone": "00000000000",
+                      "avatar": "815c6884c6fbe3ac1179ff4da04667b5-1623246339569-953f78117154041.607029e499ea1.jpg",
+                      "avatar_url": "http://localhost:3333/avatar/815c6884c6fbe3ac1179ff4da04667b5-1623246339569-953f78117154041.607029e499ea1.jpg",
+                      "birth_date": "1998-02-16",
+                      "created_at": "2021-06-05T20:58:16.543Z",
+                      "updated_at": "2021-06-05T20:58:16.543Z",
+                      "permissions": [
+                        {
+                          "id": "8b4e35ed-a769-4415-ac61-318de4d19cb6",
+                          "user_id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                          "type": "ADMIN",
+                          "created_at": "2021-06-05T20:58:16.590Z",
+                          "updated_at": "2021-06-05T20:58:16.590Z"
+                        }
+                      ]
+                  }
+
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["User"],
+        "summary": "Delete user",
+        "description": "Only the admin can delete an user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Validation fails or User does not exist"
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      }
+    },
+    "/users/avatar": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Update avatar",
+        "description": "Any authenticated user can update their avatar",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                      "type": "string",
+                      "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Avatar updated"
+          },
+          "400": {
+            "description": "Validation fails"
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      }
+    },
+    "/password/forgot": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Send email forgot password",
+        "description": "Send email with link to change password",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "email": "admin@admin.com"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Validation fails or User does not exist"
+          }
+        }
+      }
+    },
+    "/password/reset": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Reset password",
+        "description": " Reset password user with token",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "password": "any-password-here"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Validation fails, Token invalid/expired"
+          }
+        }
+      }
+    },
+    "/profile": {
+      "get": {
+        "tags": ["Profile"],
+        "summary": "Get profile",
+        "description": "Get profile user logged",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized user"
+          },
+          "400": {
+            "description": "Validation fails"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "first_name": {
+                      "type": "string"
+                    },
+                    "last_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "cpf": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "avatar": {
+                      "type": "string"
+                    },
+                    "avatar_url": {
+                      "type": "string"
+                    },
+                    "birth_date": {
+                      "type": "Date"
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    },
+                    "permissions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "Date"
+                          },
+                          "updated_at": {
+                            "type": "Date"
+                          }
+                        }
+                      }
+                    }
+                  }
+                  },
+                  "example": {
+                      "id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                      "first_name": "Testing",
+                      "last_name": "Test",
+                      "email": "admin@admin.com",
+                      "cpf": "00000000000",
+                      "phone": "00000000000",
+                      "avatar": "815c6884c6fbe3ac1179ff4da04667b5-1623246339569-953f78117154041.607029e499ea1.jpg",
+                      "avatar_url": "http://localhost:3333/avatar/815c6884c6fbe3ac1179ff4da04667b5-1623246339569-953f78117154041.607029e499ea1.jpg",
+                      "birth_date": "1998-02-16",
+                      "created_at": "2021-06-05T20:58:16.543Z",
+                      "updated_at": "2021-06-05T20:58:16.543Z",
+                      "permissions": [
+                        {
+                          "id": "8b4e35ed-a769-4415-ac61-318de4d19cb6",
+                          "user_id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                          "type": "ADMIN",
+                          "created_at": "2021-06-05T20:58:16.590Z",
+                          "updated_at": "2021-06-05T20:58:16.590Z"
+                        }
+                      ]
+                  }
+
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/permissions": {
+      "post": {
+        "tags": ["Permission"],
+        "summary": "Create new permission",
+        "description": "Only the admin can create new permission for an user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "user_id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                  "type": "ADMIN"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  }
+                },
+                "example": {
+                  "id": "8b4e35ed-a769-4415-ac61-318de4d19cb6",
+                  "user_id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                  "type": "ADMIN",
+                  "created_at": "2021-06-05T20:58:16.543Z",
+                  "updated_at": "2021-06-05T20:58:16.543Z"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized user"
+          },
+          "400": {
+            "description": "Validation fails, Permission type invalid, User not found or Permission already exists for this user"
+          }
+        }
+      }
+    },
+    "/permissions/{id}": {
+      "delete": {
+        "tags": ["Permission"],
+        "summary": "Remove permission",
+        "description": "Only the admin can remove an permission from user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+      ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Permission id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Validation fails or Permission not found"
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      }
+    },
+    "/account-types": {
+      "post": {
+        "tags": ["Account Type"],
+        "summary": "Create new account type",
+        "description": "Only the admin and financial can create new account type",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "test"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": {
+                    "id": "8b4e35ed-a769-4415-ac61-318de4d19cb6",
+                    "name": "test",
+                    "updated_at": "2021-06-05T20:58:16.543Z",
+                    "created_at": "2021-06-05T20:58:16.543Z"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized user"
+          },
+          "400": {
+            "description": "Validation fails or Account type already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Account Type"],
+        "summary": "Get all account type",
+        "description": "Get all account type if authenticated",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "description": "Page",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "per_page",
+            "description": "Items per page",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "name",
+            "description": "Account type name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": [
+                    {
+                      "id": "5d63ceed-3409-49a3-b3d8-0fbd8a3e101d",
+                      "name": "test",
+                      "created_at": "2021-06-10T01:11:28.291Z",
+                      "updated_at": "2021-06-10T01:11:28.291Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      }
+    },
+    "/account-types/{id}": {
+      "delete": {
+        "tags": ["Account Type"],
+        "summary": "Get one account type",
+        "description": "Only the admin and financial can get one account type",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Account type id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized user"
+          },
+          "400": {
+            "description": "Validation fails or Account type not found"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Account Type"],
+        "summary": "Get one account type",
+        "description": "Only the admin and financial can get one account type",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Account type id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": {
+                    "id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                    "name": "test",
+                    "created_at": "2021-06-06T17:58:10.965Z",
+                    "updated_at": "2021-06-06T17:58:10.965Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation fails or Account type does not exists"
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Account Type"],
+        "summary": "Update account type",
+        "description": "Only the admin and financial can update an account type",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Account type id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "testing"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": {
+                    "id": "87cf286d-3c7b-4a13-8152-4e27b10a4579",
+                    "name": "testing",
+                    "created_at": "2021-06-07T17:24:31.756Z",
+                    "updated_at": "2021-06-17T20:02:40.456Z"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized user"
+          },
+          "400": {
+            "description": "Validation fails, Account type not found or Account type name already exists"
+          }
+        }
+      }
+    },
+    "/bills": {
+      "post": {
+        "tags": ["Bills"],
+        "summary": "Create bill",
+        "description": "Only the admin and financial can create new bill",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "account_type_id": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  },
+                  "justification": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "Date"
+                  }
+                },
+                "example": {
+                  "account_type_id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                  "value": 15.5,
+                  "justification": "testing that",
+                  "date": "1998-02-16"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200":{
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "account_type_id": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "number"
+                    },
+                    "justification": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": {
+                    "account_type_id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                    "value": 15.5,
+                    "justification": "testing that",
+                    "date": "1998-02-16"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation fails or account type does not exists"
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Bills"],
+        "summary": "Get all bills",
+        "description": "Get all bills if authenticated",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "description": "Page",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "per_page",
+            "description": "Items per page",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "account_type_id",
+            "description": "Account type id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "account_type_id",
+            "description": "Account type id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "justification",
+            "description": "Justification",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_start",
+            "description": "Date start",
+            "in": "query",
+            "schema": {
+              "type": "Date"
+            }
+          },
+          {
+            "name": "date_finish",
+            "description": "Date finish",
+            "in": "query",
+            "schema": {
+              "type": "Date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "account_type_id": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "number"
+                    },
+                    "justification": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "Date"
+                    },
+                    "account_type": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "Date"
+                        },
+                        "updated_at": {
+                          "type": "Date"
+                        }
+                      }
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": [
+                    {
+                      "id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                      "account_type_id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                      "value": 15.8,
+                      "justification": "tests",
+                      "date": "2021-06-07",
+                      "account_type": {
+                        "id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                        "name": "test",
+                        "created_at": "2021-06-06T17:58:10.965Z",
+                        "updated_at": "2021-06-06T17:58:10.965Z"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      }
+    },
+    "/bills/{id}": {
+      "delete": {
+        "tags": ["Bills"],
+        "summary": "Remove bill",
+        "description": "Only the admin or financial can remove an bill",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+      ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Bill id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Validation fails or Bill not found"
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Bills"],
+        "summary": "Get one bill",
+        "description": "Only the admin and financial can get one bill",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Bill id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "account_type_id": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "number"
+                    },
+                    "justification": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "Date"
+                    },
+                    "account_type": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "Date"
+                        },
+                        "updated_at": {
+                          "type": "Date"
+                        }
+                      }
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": {
+                      "id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                      "account_type_id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                      "value": 15.8,
+                      "justification": "tests",
+                      "date": "2021-06-07",
+                      "account_type": {
+                        "id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                        "name": "test",
+                        "created_at": "2021-06-06T17:58:10.965Z",
+                        "updated_at": "2021-06-06T17:58:10.965Z"
+                      }
+                    }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation fails or Bill does not exists"
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Bills"],
+        "summary": "Update bill",
+        "description": "Only the admin and financial can update an bill",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Bill id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "account_type_id": {
+                    "type": "string"
+                  },
+                  "justification": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  }
+                },
+                "example": {
+                  "account_type_id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                  "justification": "testing that",
+                  "value": 200
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "account_type_id": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "number"
+                    },
+                    "justification": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "Date"
+                    },
+                    "account_type": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "Date"
+                        },
+                        "updated_at": {
+                          "type": "Date"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "id": "19d7b0fb-943d-4306-a494-af1a8f0bd1e1",
+                    "account_type_id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                    "value": 200,
+                    "justification": "testing that",
+                    "date": "2021-06-08",
+                    "account_type": {
+                      "id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                      "name": "test",
+                      "created_at": "2021-06-06T17:58:10.965Z",
+                      "updated_at": "2021-06-06T17:58:10.965Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized user"
+          },
+          "400": {
+            "description": "Validation fails, Bill not found or Account type not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "in": "header",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
