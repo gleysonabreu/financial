@@ -404,10 +404,10 @@
                       "permissions": [
                         {
                           "id": "8b4e35ed-a769-4415-ac61-318de4d19cb6",
-                          "userId": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                          "user_id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
                           "type": "ADMIN",
-                          "createdAt": "2021-06-05T20:58:16.590Z",
-                          "updatedAt": "2021-06-05T20:58:16.590Z"
+                          "created_at": "2021-06-05T20:58:16.590Z",
+                          "updated_at": "2021-06-05T20:58:16.590Z"
                         }
                       ]
                   }
@@ -538,10 +538,10 @@
                       "permissions": [
                         {
                           "id": "8b4e35ed-a769-4415-ac61-318de4d19cb6",
-                          "userId": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                          "user_id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
                           "type": "ADMIN",
-                          "createdAt": "2021-06-05T20:58:16.590Z",
-                          "updatedAt": "2021-06-05T20:58:16.590Z"
+                          "created_at": "2021-06-05T20:58:16.590Z",
+                          "updated_at": "2021-06-05T20:58:16.590Z"
                         }
                       ]
                   }
@@ -808,10 +808,10 @@
                       "permissions": [
                         {
                           "id": "8b4e35ed-a769-4415-ac61-318de4d19cb6",
-                          "userId": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                          "user_id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
                           "type": "ADMIN",
-                          "createdAt": "2021-06-05T20:58:16.590Z",
-                          "updatedAt": "2021-06-05T20:58:16.590Z"
+                          "created_at": "2021-06-05T20:58:16.590Z",
+                          "updated_at": "2021-06-05T20:58:16.590Z"
                         }
                       ]
                   }
@@ -1060,8 +1060,8 @@
                     {
                       "id": "5d63ceed-3409-49a3-b3d8-0fbd8a3e101d",
                       "name": "test",
-                      "createdAt": "2021-06-10T01:11:28.291Z",
-                      "updatedAt": "2021-06-10T01:11:28.291Z"
+                      "created_at": "2021-06-10T01:11:28.291Z",
+                      "updated_at": "2021-06-10T01:11:28.291Z"
                     }
                   ]
                 }
@@ -1151,8 +1151,8 @@
                   "example": {
                     "id": "ab46be99-7822-4973-9e1b-6371ba329422",
                     "name": "test",
-                    "createdAt": "2021-06-06T17:58:10.965Z",
-                    "updatedAt": "2021-06-06T17:58:10.965Z"
+                    "created_at": "2021-06-06T17:58:10.965Z",
+                    "updated_at": "2021-06-06T17:58:10.965Z"
                   }
                 }
               }
@@ -1228,8 +1228,8 @@
                   "example": {
                     "id": "87cf286d-3c7b-4a13-8152-4e27b10a4579",
                     "name": "testing",
-                    "createdAt": "2021-06-07T17:24:31.756Z",
-                    "updatedAt": "2021-06-17T20:02:40.456Z"
+                    "created_at": "2021-06-07T17:24:31.756Z",
+                    "updated_at": "2021-06-17T20:02:40.456Z"
                   }
                 }
               }
