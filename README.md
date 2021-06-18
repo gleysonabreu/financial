@@ -1,225 +1,80 @@
 # Financial
 
-Projeto com objetivo guardar o fluxo caixa de qualquer tipo de empresa.
+This application was developed for a college project.
+The project consists of an API for registering account types and bills with a three-level permission system: Admin, Finance, Manager.
 
-## Checklist Features
+## Environment Variables
 
-- Login
-  - [x] Autenticação com JWT token
-  - [x] Autenticar usuário
-  - [x] Validar permissões
-    - [x] Administrador
-    - [x] Gerente
-    - [x] Financeiro
-  - [x] Sistema de esqueci minha senha
-    - [x] Enviar email com link para alterar senha
-    - [x] Alterar senha
-- Users
+To run this project, you need to copy the ​​environment variables from the .env.example file and populate it.
+The files you need to fill in are: .env, .env.dev, .env.test
 
-  - [x] Remover usuário, somente admins
-  - [x] Buscar todos os usuários (com filtros), somente admins
-    - Buscar
-      - [x] Por cpf
-      - [x] Por nome
-    - Paginação
-      - [x] Itens por página
-      - [x] Página
-  - [x] Buscar um usuário em especifico, somente admins
-    - [x] id
-  - [x] Cadastrar usuários, somente admins
-  - [x] Atualizar usuário, todos os usuários poderão atualizar seus dados
-  - [x] Visualizar perfil
-  - [x] Atualizar avatar de usuário
+## Run Locally
 
-- Permissões
+Clone the project
 
-  - [x] Remover permissões, somente admins
-  - [x] Adicionar permissão, somente admins
+```bash
+  git clone https://github.com/gleysonabreu/financial.git
+```
 
-- Tipos de contas
+Go to the project directory
 
-  - [x] Buscar todos os tipos de contas, somente admin e financeiro.
-  - [x] Buscar uma conta em especifico, somente admin e financeiro.
-    - [x] id
-  - [x] Atualizar tipo de conta, somente admin e Financeiro
-  - [x] Remover tipo de conta, somente admin e financeiro.
-  - [x] Cadastrar tipo de conta, somente admin e financeiro.
+```bash
+  cd financial
+```
 
-- Contas
-  - [x] Cadastrar contas, somente admin e financeiro
-  - [x] Atualizar conta, somente admin e financeiro.
-  - [x] Buscar todas contas (com filtros), todos autenticados poderão ver
-    - Buscar
-      - [x] Por justificativa
-      - [x] Por tipo de conta
-      - [x] Por data inicio e fim
-    - Paginação
-      - [x] Itens por página
-      - [x] Página
-  - [x] Buscar uma conta em especifico, todos autenticados poderão ver
-    - [x] id
-  - [x] Remover conta, somente admin e financeiro
-    - [x] id
+Install dependencies
 
-## Requisições
+```bash
+  npm install
+  or
+  yarn install
+```
 
-- Users
+Install migrations
 
-  - /users/avatar
+```bash
+npm run typeorm migration:run
+or
+yarn typeorm migration:run
+```
 
-    - tipo: patch
-    - header: Authorization
-    - body: form multipart: `avatar: tipo file`
+Start the server
 
-  - /users/:id
+```bash
+  npm run dev
+  or
+  yarn dev
+```
 
-    - tipo: delete
-    - header: Authorization
-    - parâmetros: id
+## DOCS
 
-  - /users/:id
+After you start the server you can access the documentation at the following link:
 
-    - tipo: get
-    - header: Authorization
-    - parâmetros: id
-    - retorna: `{ id, firstName, lastName, email, cpf, birthDate, phone, permissions": [], createdAt, updatedAt }`
+- [http://localhost:3333/api-docs](http://localhost:3333/api-docs)
 
-  - /users
+## Running Tests
 
-    - tipo: get
-    - header: Authorization
-    - queryParams (opcionais):
-      - page
-      - per_page
-      - cpf
-      - name
-    - retorna: `[{ id, firstName, lastName, email, cpf, birthDate, phone, permissions": [], createdAt, updatedAt }]`
+To run tests, run the following command
 
-  - /users
+```bash
+  npm run test
+  or
+  yarn test
+```
 
-    - tipo: post
-    - header: Authorization
-    - body: ` { first_name, last_name, email, password, birth_date, cpf, phone permissions: [ { type } ] }`
+## Demo
 
-  - /users
+- [DOCS](https://financial-api-v2.herokuapp.com/api-docs)
+- [API](https://financial-api-v2.herokuapp.com/)
 
-    - tipo: put
-    - header: Authorization
-    - body: `{ first_name, last_name, email, phone, cpf, birth_date }`
-    - retorna: `{ id, firstName, lastName, email, cpf, birthDate, phone, permissions: [], createdAt, updatedAt }`
+## Tech
 
-  - /auth
+- [Node](https://nodejs.org/)
+- [Express](https://expressjs.com/)
+- [Typescript](https://www.typescriptlang.org/)
+- [TypeORM](https://typeorm.io/)
+- [Swagger](https://swagger.io/)
 
-    - tipo: post
-    - header: Authorization
-    - body: `{ email, password }`
-    - retorna: `{ user: { id, email, firstName, lastName }, token, permissions: [] }`
+## Authors
 
-  - /profile
-
-    - tipo: get
-    - header: Authorization
-    - retorna: `{ id, firstName, lastName, email, cpf, birthDate, phone, permissions": [], createdAt, updatedAt }`
-
-- Permissões
-
-  - /permissions
-
-    - tipo: post
-    - header: Authorization
-    - body: `{ user_id, type, }`
-    - retorna: `{ id, userId, type, createdAt, updatedAt }`
-
-  - /permissions/:id
-    - tipo: delete
-    - header: Authorization
-    - parâmetros: id
-
-- Tipos de contas
-
-  - /account-types/:id
-
-    - tipo: get
-    - header: Authorization
-    - parâmetros: id
-    - retorna: `{ id, name, createdAt, updatedAt }`
-
-  - /account-type
-
-    - tipo: get
-    - header: Authorization
-    - retorna: `[{ id, name, createdAt, updatedAt }]`
-
-  - /account-types/:id
-
-    - tipo: put
-    - header: Authorization
-    - parâmetros: id
-    - body: `{name}`
-
-  - /account-types/:id
-
-    - tipo: delete
-    - header: Authorization
-    - parâmetros: id
-
-  - /account-types
-    - tipo: post
-    - header: Authorization
-    - body: `{name}`
-
-- Contas
-
-  - /bills
-
-    - tipo: get
-    - header: Authorization
-    - queryParams (opcionais):
-      - page
-      - per_page
-      - account_type_id
-      - justification
-      - date_start
-      - date_finish
-    - retorna: `[{id, accountTypeId, value, justification, date, accountType: { id, name, createdAt, updatedAt }}]`
-
-  - /bills/:id
-
-    - tipo: get
-    - header: Authorization
-    - parâmetros: id
-    - retorna: `{id, accountTypeId, value, justification, date, accountType: { id, name, createdAt, updatedAt }}`
-
-  - /bills/:id
-
-    - tipo: delete
-    - header: Authorization
-    - parâmetros: id
-
-  - /bills/:id
-
-    - tipo: put
-    - header: Authorization
-    - parâmetros: id
-    - body: `{ account_type_id, justification, value }`
-    - retorna: `{ id, accountTypeId, value, justification, date, accountType": { id, name, createdAt, updatedAt } }`
-
-  - /bills
-
-    - tipo: post
-    - header: Authorization
-    - body: `{ account_type_id, justification, value, date }`
-    - retorna: `{ id, account_type_id, justification, value, date }`
-
-- Esqueci minha senha
-
-  - /password/forgot
-
-    - tipo: post
-    - body: `{email}`
-
-  - /password/reset
-
-    - tipo: post
-    - query: `{token}`
-    - body: `{password}`
+- [@gleysonabreu](https://www.github.com/gleysonabreu)
