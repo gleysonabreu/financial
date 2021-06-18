@@ -702,20 +702,15 @@
       }
     },
     "/profile": {
-      "security": [
-        {
-          "bearerAuth": []
-        }
-      ],
       "get": {
         "tags": ["Profile"],
-      "summary": "Get profile",
-      "description": "Get profile user logged",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "summary": "Get profile",
+        "description": "Get profile user logged",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
         "responses": {
           "401": {
             "description": "Unauthorized user"
@@ -1240,6 +1235,462 @@
           },
           "400": {
             "description": "Validation fails, Account type not found or Account type name already exists"
+          }
+        }
+      }
+    },
+    "/bills": {
+      "post": {
+        "tags": ["Bills"],
+        "summary": "Create bill",
+        "description": "Only the admin and financial can create new bill",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "account_type_id": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  },
+                  "justification": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "Date"
+                  }
+                },
+                "example": {
+                  "account_type_id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                  "value": 15.5,
+                  "justification": "testing that",
+                  "date": "1998-02-16"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200":{
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "account_type_id": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "number"
+                    },
+                    "justification": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": {
+                    "account_type_id": "bc44765d-ab13-4d62-88af-f173e4d8b07e",
+                    "value": 15.5,
+                    "justification": "testing that",
+                    "date": "1998-02-16"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation fails or account type does not exists"
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Bills"],
+        "summary": "Get all bills",
+        "description": "Get all bills if authenticated",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "description": "Page",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "per_page",
+            "description": "Items per page",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "account_type_id",
+            "description": "Account type id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "account_type_id",
+            "description": "Account type id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "justification",
+            "description": "Justification",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_start",
+            "description": "Date start",
+            "in": "query",
+            "schema": {
+              "type": "Date"
+            }
+          },
+          {
+            "name": "date_finish",
+            "description": "Date finish",
+            "in": "query",
+            "schema": {
+              "type": "Date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "account_type_id": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "number"
+                    },
+                    "justification": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "Date"
+                    },
+                    "account_type": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "Date"
+                        },
+                        "updated_at": {
+                          "type": "Date"
+                        }
+                      }
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": [
+                    {
+                      "id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                      "account_type_id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                      "value": 15.8,
+                      "justification": "tests",
+                      "date": "2021-06-07",
+                      "account_type": {
+                        "id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                        "name": "test",
+                        "created_at": "2021-06-06T17:58:10.965Z",
+                        "updated_at": "2021-06-06T17:58:10.965Z"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      }
+    },
+    "/bills/{id}": {
+      "delete": {
+        "tags": ["Bills"],
+        "summary": "Remove bill",
+        "description": "Only the admin or financial can remove an bill",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+      ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Bill id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Validation fails or Bill not found"
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Bills"],
+        "summary": "Get one bill",
+        "description": "Only the admin and financial can get one bill",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Bill id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "account_type_id": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "number"
+                    },
+                    "justification": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "Date"
+                    },
+                    "account_type": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "Date"
+                        },
+                        "updated_at": {
+                          "type": "Date"
+                        }
+                      }
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": {
+                      "id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                      "account_type_id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                      "value": 15.8,
+                      "justification": "tests",
+                      "date": "2021-06-07",
+                      "account_type": {
+                        "id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                        "name": "test",
+                        "created_at": "2021-06-06T17:58:10.965Z",
+                        "updated_at": "2021-06-06T17:58:10.965Z"
+                      }
+                    }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation fails or Bill does not exists"
+          },
+          "401": {
+            "description": "Unauthorized user"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Bills"],
+        "summary": "Update bill",
+        "description": "Only the admin and financial can update an bill",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Bill id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "account_type_id": {
+                    "type": "string"
+                  },
+                  "justification": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  }
+                },
+                "example": {
+                  "account_type_id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                  "justification": "testing that",
+                  "value": 200
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "account_type_id": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "number"
+                    },
+                    "justification": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "Date"
+                    },
+                    "account_type": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "Date"
+                        },
+                        "updated_at": {
+                          "type": "Date"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "id": "19d7b0fb-943d-4306-a494-af1a8f0bd1e1",
+                    "account_type_id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                    "value": 200,
+                    "justification": "testing that",
+                    "date": "2021-06-08",
+                    "account_type": {
+                      "id": "ab46be99-7822-4973-9e1b-6371ba329422",
+                      "name": "test",
+                      "created_at": "2021-06-06T17:58:10.965Z",
+                      "updated_at": "2021-06-06T17:58:10.965Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized user"
+          },
+          "400": {
+            "description": "Validation fails, Bill not found or Account type not found"
           }
         }
       }
