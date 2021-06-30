@@ -8,7 +8,7 @@ import swaggerUi from 'swagger-ui-express';
 import { HandleAppError } from '@shared/errors/HandleAppError';
 
 import swaggerFile from '../../../swagger.json';
-import connection from '../../database/connection';
+import connection from '../typeorm/connection';
 import '../../container';
 import { router } from './routes';
 
