@@ -1,4 +1,4 @@
-import { Permission } from '@modules/permissions/entities/Permission';
+import { IPermission } from '@modules/permissions/DTOS/IPermission';
 import { IPermissionsRepository } from '@modules/permissions/repositories/IPermissionsRepository';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { inject, injectable } from 'tsyringe';
@@ -18,7 +18,7 @@ class CreatePermissionsUseCase {
     private permissionsRepository: IPermissionsRepository,
   ) {}
 
-  async execute({ userId, type }: ICreatePermissionDTO): Promise<Permission> {
+  async execute({ userId, type }: ICreatePermissionDTO): Promise<IPermission> {
     const schema = yup.object().shape({
       user_id: yup.string().uuid().required(),
       type: yup.string().required(),

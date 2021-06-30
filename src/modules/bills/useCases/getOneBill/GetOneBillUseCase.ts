@@ -1,4 +1,4 @@
-import { Bill } from '@modules/bills/entities/Bill';
+import { IBill } from '@modules/bills/DTOS/IBill';
 import { IBillsRepository } from '@modules/bills/repositories/IBillsRepository';
 import { inject, injectable } from 'tsyringe';
 import * as yup from 'yup';
@@ -16,7 +16,7 @@ class GetOneBillUseCase {
     private billsRepository: IBillsRepository,
   ) {}
 
-  async execute({ id }: IRequest): Promise<Bill> {
+  async execute({ id }: IRequest): Promise<IBill> {
     const schema = yup.object().shape({
       id: yup.string().uuid().required(),
     });

@@ -1,16 +1,17 @@
 import { ICreateUserTokenDTO } from '@modules/users/DTO/ICreateUserTokenDTO';
-import { UserToken } from '@modules/users/entities/UserToken';
+import { IUserToken } from '@modules/users/DTO/IUserToken';
+import { UserToken } from '@modules/users/infra/typeorm/entities/UserToken';
 
 import { IUsersTokensRepository } from '../IUsersTokensRepository';
 
 class InMemoryUsersTokensRepository implements IUsersTokensRepository {
-  private usersTokens: UserToken[] = [];
+  private usersTokens: IUserToken[] = [];
 
   async create({
     expireDate,
     token,
     userId,
-  }: ICreateUserTokenDTO): Promise<UserToken> {
+  }: ICreateUserTokenDTO): Promise<IUserToken> {
     const userToken = new UserToken();
 
     Object.assign(userToken, {
@@ -26,14 +27,14 @@ class InMemoryUsersTokensRepository implements IUsersTokensRepository {
   async findUserIdAndToken(
     userId: string,
     token: string,
-  ): Promise<UserToken | undefined> {
+  ): Promise<IUserToken | undefined> {
     const userToken = this.usersTokens.find(
       userT => userT.userId === userId && userT.token === token,
     );
     return userToken;
   }
 
-  async findByToken(token: string): Promise<UserToken | undefined> {
+  async findByToken(token: string): Promise<IUserToken | undefined> {
     const userToken = this.usersTokens.find(userT => userT.token === token);
     return userToken;
   }

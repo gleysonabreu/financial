@@ -1,6 +1,6 @@
-import { Permission } from '@modules/permissions/entities/Permission';
+import { Permission } from '@modules/permissions/infra/typeorm/entities/Permission';
 
-import { User } from '../entities/User';
+import { User } from '../infra/typeorm/entities/User';
 
 interface IResponse {
   id: string;

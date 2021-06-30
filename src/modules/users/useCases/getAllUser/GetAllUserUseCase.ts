@@ -1,4 +1,4 @@
-import { User } from '@modules/users/entities/User';
+import { IUser } from '@modules/users/DTO/IUser';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { inject, injectable } from 'tsyringe';
 import * as yup from 'yup';
@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import { IGetAllUserDTO } from './IGetAllUserDTO';
 
 interface IResponse {
-  users: User[];
+  users: IUser[];
   totalUsers: number;
 }
 

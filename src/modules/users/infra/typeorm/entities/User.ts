@@ -1,4 +1,5 @@
-import { Permission } from '@modules/permissions/entities/Permission';
+import { Permission } from '@modules/permissions/infra/typeorm/entities/Permission';
+import { IUser } from '@modules/users/DTO/IUser';
 import {
   Column,
   CreateDateColumn,
@@ -10,7 +11,7 @@ import {
 import { v4 as uuid } from 'uuid';
 
 @Entity('users')
-class User {
+class User implements IUser {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

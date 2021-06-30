@@ -1,4 +1,4 @@
-import { User } from '@modules/users/entities/User';
+import { IUser } from '@modules/users/DTO/IUser';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { inject, injectable } from 'tsyringe';
 import * as yup from 'yup';
@@ -12,7 +12,7 @@ class ShowUserProfileUseCase {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute(id: string): Promise<User> {
+  async execute(id: string): Promise<IUser> {
     const schema = yup.object().shape({
       id: yup.string().uuid().required(),
     });

@@ -1,29 +1,25 @@
-import { User } from '@modules/users/entities/User';
+import { IAccountType } from '@modules/accountTypes/DTOS/IAccountType';
+import { Bill } from '@modules/bills/infra/typeorm/entities/Bill';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-@Entity('permissions')
-class Permission {
+@Entity('account_types')
+class AccountType implements IAccountType {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'user_id' })
-  userId: string;
-
   @Column()
-  type: string;
+  name: string;
 
-  @ManyToOne(() => User, user => user.permissions)
-  @JoinColumn({ name: 'user_id' })
-  user: User;
+  @OneToMany(() => Bill, bill => bill.accountType)
+  bills: Bill[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
@@ -38,4 +34,4 @@ class Permission {
   }
 }
 
-export { Permission };
+export { AccountType };

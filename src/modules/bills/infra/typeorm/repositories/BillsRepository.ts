@@ -1,9 +1,9 @@
 import { getRepository, Repository } from 'typeorm';
 
+import { IBillsRepository } from '../../../repositories/IBillsRepository';
+import { ICreateBillDTO } from '../../../useCases/createBill/ICreateBillDTO';
+import { IGetAllBillDTO } from '../../../useCases/getAllBill/IGetAllBillDTO';
 import { Bill } from '../entities/Bill';
-import { ICreateBillDTO } from '../useCases/createBill/ICreateBillDTO';
-import { IGetAllBillDTO } from '../useCases/getAllBill/IGetAllBillDTO';
-import { IBillsRepository } from './IBillsRepository';
 
 class BillsRepository implements IBillsRepository {
   private repository: Repository<Bill>;

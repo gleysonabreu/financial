@@ -1,14 +1,15 @@
 import { ICreateUserTokenDTO } from '@modules/users/DTO/ICreateUserTokenDTO';
-import { UserToken } from '@modules/users/entities/UserToken';
+
+import { IUserToken } from '../DTO/IUserToken';
 
 interface IUsersTokensRepository {
-  create(userToken: ICreateUserTokenDTO): Promise<UserToken>;
+  create(userToken: ICreateUserTokenDTO): Promise<IUserToken>;
   findUserIdAndToken(
     userId: string,
     token: string,
-  ): Promise<UserToken | undefined>;
+  ): Promise<IUserToken | undefined>;
   deleteById(id: string): Promise<void>;
-  findByToken(token: string): Promise<UserToken | undefined>;
+  findByToken(token: string): Promise<IUserToken | undefined>;
 }
 
 export { IUsersTokensRepository };

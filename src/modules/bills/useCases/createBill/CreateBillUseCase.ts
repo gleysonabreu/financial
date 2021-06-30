@@ -1,5 +1,5 @@
 import { IAccountTypesRepository } from '@modules/accountTypes/repositories/IAccountTypesRepository';
-import { Bill } from '@modules/bills/entities/Bill';
+import { IBill } from '@modules/bills/DTOS/IBill';
 import { IBillsRepository } from '@modules/bills/repositories/IBillsRepository';
 import moment from 'moment';
 import { inject, injectable } from 'tsyringe';
@@ -22,7 +22,7 @@ class CreateBillUseCase {
     justification,
     value,
     date,
-  }: ICreateBillDTO): Promise<Bill> {
+  }: ICreateBillDTO): Promise<IBill> {
     const schema = yup.object().shape({
       account_type_id: yup.string().uuid().required(),
       justification: yup.string().min(10).required(),

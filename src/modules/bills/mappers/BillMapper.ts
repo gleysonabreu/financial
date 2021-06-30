@@ -1,4 +1,4 @@
-import { Bill } from '../entities/Bill';
+import { IBill } from '../DTOS/IBill';
 
 type IResponse = {
   id: string;
@@ -14,7 +14,7 @@ type IResponse = {
   };
 };
 class BillMapper {
-  static toMany(bills: Bill[]): IResponse[] {
+  static toMany(bills: IBill[]): IResponse[] {
     return bills.map(bill => this.toDTO(bill));
   }
 
@@ -25,7 +25,7 @@ class BillMapper {
     id,
     justification,
     value,
-  }: Bill): IResponse {
+  }: IBill): IResponse {
     return {
       id,
       justification,

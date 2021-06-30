@@ -1,4 +1,4 @@
-import { UsersRepository } from '@modules/users/repositories/UsersRepository';
+import { UsersRepository } from '@modules/users/infra/typeorm/repositories/UsersRepository';
 import { NextFunction, Request, Response } from 'express';
 
 import { JWTInvalidTokenError } from '@shared/errors/JWTInvalidTokenError';

@@ -1,4 +1,4 @@
-import { Permission } from '../entities/Permission';
+import { IPermission } from '../DTOS/IPermission';
 
 type IResponse = {
   id: string;
@@ -9,7 +9,7 @@ type IResponse = {
 };
 
 class PermissionMapper {
-  static toMany(permissions: Permission[]): IResponse[] {
+  static toMany(permissions: IPermission[]): IResponse[] {
     return permissions.map(permission => this.toDTO(permission));
   }
 
@@ -19,7 +19,7 @@ class PermissionMapper {
     type,
     updatedAt,
     userId,
-  }: Permission): IResponse {
+  }: IPermission): IResponse {
     return {
       id,
       type,

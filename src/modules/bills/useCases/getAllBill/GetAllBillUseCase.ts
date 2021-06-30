@@ -1,4 +1,4 @@
-import { Bill } from '@modules/bills/entities/Bill';
+import { IBill } from '@modules/bills/DTOS/IBill';
 import { IBillsRepository } from '@modules/bills/repositories/IBillsRepository';
 import moment from 'moment';
 import { inject, injectable } from 'tsyringe';
@@ -14,7 +14,7 @@ interface IRequest {
 }
 
 interface IResponse {
-  bills: Bill[];
+  bills: IBill[];
   totalBills: number;
 }
 

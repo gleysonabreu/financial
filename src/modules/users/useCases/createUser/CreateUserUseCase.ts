@@ -1,4 +1,5 @@
-import { User } from '@modules/users/entities/User';
+import { IUser } from '@modules/users/DTO/IUser';
+import { User } from '@modules/users/infra/typeorm/entities/User';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import moment from 'moment';
 import { inject, injectable } from 'tsyringe';
@@ -26,7 +27,7 @@ class CreateUserUseCase {
     birthDate,
     cpf,
     phone,
-  }: ICreateUserDTO): Promise<User> {
+  }: ICreateUserDTO): Promise<IUser> {
     const schema = yup.object().shape({
       email: yup.string().min(10).email().required(),
       password: yup.string().min(6).required(),

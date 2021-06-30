@@ -1,5 +1,5 @@
 import { IAccountTypesRepository } from '@modules/accountTypes/repositories/IAccountTypesRepository';
-import { Bill } from '@modules/bills/entities/Bill';
+import { IBill } from '@modules/bills/DTOS/IBill';
 import { IBillsRepository } from '@modules/bills/repositories/IBillsRepository';
 import { inject, injectable } from 'tsyringe';
 import * as yup from 'yup';
@@ -21,7 +21,7 @@ class UpdateBillUseCase {
     accountTypeId,
     justification,
     value,
-  }: IUpdateBillDTO): Promise<Bill> {
+  }: IUpdateBillDTO): Promise<IBill> {
     const schema = yup.object().shape({
       id: yup.string().uuid().required(),
       account_type_id: yup.string().uuid().required(),

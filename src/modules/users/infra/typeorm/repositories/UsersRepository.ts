@@ -1,9 +1,9 @@
 import { getRepository, Repository } from 'typeorm';
 
+import { IUsersRepository } from '../../../repositories/IUsersRepository';
+import { ICreateUserDTO } from '../../../useCases/createUser/ICreateUserDTO';
+import { IGetAllUserDTO } from '../../../useCases/getAllUser/IGetAllUserDTO';
 import { User } from '../entities/User';
-import { ICreateUserDTO } from '../useCases/createUser/ICreateUserDTO';
-import { IGetAllUserDTO } from '../useCases/getAllUser/IGetAllUserDTO';
-import { IUsersRepository } from './IUsersRepository';
 
 class UsersRepository implements IUsersRepository {
   private repository: Repository<User>;

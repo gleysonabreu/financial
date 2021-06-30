@@ -1,4 +1,5 @@
-import { Bill } from '@modules/bills/entities/Bill';
+import { IBill } from '@modules/bills/DTOS/IBill';
+import { Bill } from '@modules/bills/infra/typeorm/entities/Bill';
 import { ICreateBillDTO } from '@modules/bills/useCases/createBill/ICreateBillDTO';
 import { IGetAllBillDTO } from '@modules/bills/useCases/getAllBill/IGetAllBillDTO';
 
@@ -7,18 +8,18 @@ import { IBillsRepository } from '../IBillsRepository';
 class InMemoryBills implements IBillsRepository {
   private bills: Bill[] = [];
 
-  async create(data: ICreateBillDTO): Promise<Bill> {
+  async create(data: ICreateBillDTO): Promise<IBill> {
     const bill = new Bill();
     Object.assign(bill, data);
     this.bills.push(bill);
     return bill;
   }
 
-  async findById(id: string): Promise<Bill | undefined> {
+  async findById(id: string): Promise<IBill | undefined> {
     return this.bills.find(bill => bill.id === id);
   }
 
-  async save(billUpdate: Bill): Promise<Bill> {
+  async save(billUpdate: IBill): Promise<IBill> {
     const findElement = this.bills.findIndex(bill => bill.id === billUpdate.id);
     this.bills[findElement].accountTypeId = billUpdate.accountTypeId;
     this.bills[findElement].justification = billUpdate.justification;
@@ -27,7 +28,7 @@ class InMemoryBills implements IBillsRepository {
     return billUpdate;
   }
 
-  async delete(billRemove: Bill): Promise<void> {
+  async delete(billRemove: IBill): Promise<void> {
     const removedBill = this.bills.filter(bill => bill.id !== billRemove.id);
     this.bills = removedBill;
   }
@@ -37,7 +38,7 @@ class InMemoryBills implements IBillsRepository {
     justification,
     dateFinish,
     dateStart,
-  }: IGetAllBillDTO): Promise<Bill[]> {
+  }: IGetAllBillDTO): Promise<IBill[]> {
     if (!accountTypeId && !justification && !dateStart && !dateFinish) {
       return this.bills;
     }

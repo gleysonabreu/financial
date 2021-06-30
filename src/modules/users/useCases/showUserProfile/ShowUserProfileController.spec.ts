@@ -1,11 +1,11 @@
 import { permissions } from '@config/permissions';
-import { UserToken } from '@modules/users/entities/UserToken';
+import { UserToken } from '@modules/users/infra/typeorm/entities/UserToken';
 import request from 'supertest';
 import { Connection } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-import createConnection from '@shared/database/connection';
 import { app } from '@shared/infra/http/app';
+import createConnection from '@shared/infra/typeorm/connection';
 import { hash } from '@shared/services/password';
 
 let connection: Connection;

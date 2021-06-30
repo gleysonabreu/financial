@@ -1,4 +1,5 @@
-import { Permission } from '@modules/permissions/entities/Permission';
+import { IPermission } from '@modules/permissions/DTOS/IPermission';
+import { Permission } from '@modules/permissions/infra/typeorm/entities/Permission';
 import { ICreatePermissionDTO } from '@modules/permissions/useCases/createPermission/ICreatePermissionDTO';
 import { IGetPermissionUserIdAndTypeDTO } from '@modules/permissions/useCases/createPermission/IGetPermissionUserIdAndTypeDTO';
 
@@ -7,7 +8,7 @@ import { IPermissionsRepository } from '../IPermissionsRepository';
 class InMemoryPermissionsRepository implements IPermissionsRepository {
   private permissions: Permission[] = [];
 
-  async create(permissionData: ICreatePermissionDTO): Promise<Permission> {
+  async create(permissionData: ICreatePermissionDTO): Promise<IPermission> {
     const permission = new Permission();
     Object.assign(permission, permissionData);
     this.permissions.push(permission);
@@ -17,17 +18,17 @@ class InMemoryPermissionsRepository implements IPermissionsRepository {
   async findPermissionByUserIdAndType({
     userId,
     type,
-  }: IGetPermissionUserIdAndTypeDTO): Promise<Permission | undefined> {
+  }: IGetPermissionUserIdAndTypeDTO): Promise<IPermission | undefined> {
     return this.permissions.find(
       permission => permission.userId === userId && permission.type === type,
     );
   }
 
-  async findById(id: string): Promise<Permission | undefined> {
+  async findById(id: string): Promise<IPermission | undefined> {
     return this.permissions.find(permission => permission.id === id);
   }
 
-  async delete(permission: Permission): Promise<void> {
+  async delete(permission: IPermission): Promise<void> {
     const removePermission = this.permissions.filter(
       permissionArray => permissionArray.id !== permission.id,
     );

@@ -1,4 +1,4 @@
-import { User } from '@modules/users/entities/User';
+import { IUser } from '@modules/users/DTO/IUser';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import moment from 'moment';
 import { inject, injectable } from 'tsyringe';
@@ -22,7 +22,7 @@ class UpdateUserUseCase {
     cpf,
     phone,
     birthDate,
-  }: IUpdateUserDTO): Promise<User> {
+  }: IUpdateUserDTO): Promise<IUser> {
     const schema = yup.object().shape({
       email: yup.string().min(10).email().required(),
       first_name: yup.string().min(5).required(),

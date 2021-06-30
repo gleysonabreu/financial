@@ -1,4 +1,4 @@
-import { AccountType } from '@modules/accountTypes/entities/AccountType';
+import { IAccountType } from '@modules/accountTypes/DTOS/IAccountType';
 import { IAccountTypesRepository } from '@modules/accountTypes/repositories/IAccountTypesRepository';
 import { inject, injectable } from 'tsyringe';
 import * as yup from 'yup';
@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import { IGetAllAccountTypeDTO } from './IGetAllAccountTypeDTO';
 
 type IResponse = {
-  accountTypes: AccountType[];
+  accountTypes: IAccountType[];
   totalAccountTypes: number;
 };
 @injectable()

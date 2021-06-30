@@ -1,9 +1,9 @@
 import { getRepository, Repository } from 'typeorm';
 
+import { IPermissionsRepository } from '../../../repositories/IPermissionsRepository';
+import { ICreatePermissionDTO } from '../../../useCases/createPermission/ICreatePermissionDTO';
+import { IGetPermissionUserIdAndTypeDTO } from '../../../useCases/createPermission/IGetPermissionUserIdAndTypeDTO';
 import { Permission } from '../entities/Permission';
-import { ICreatePermissionDTO } from '../useCases/createPermission/ICreatePermissionDTO';
-import { IGetPermissionUserIdAndTypeDTO } from '../useCases/createPermission/IGetPermissionUserIdAndTypeDTO';
-import { IPermissionsRepository } from './IPermissionsRepository';
 
 class PermissionsRepository implements IPermissionsRepository {
   private repository: Repository<Permission>;

@@ -1,4 +1,5 @@
-import { AccountType } from '@modules/accountTypes/entities/AccountType';
+import { AccountType } from '@modules/accountTypes/infra/typeorm/entities/AccountType';
+import { IBill } from '@modules/bills/DTOS/IBill';
 import {
   Column,
   Entity,
@@ -9,7 +10,7 @@ import {
 import { v4 as uuid } from 'uuid';
 
 @Entity('bills')
-class Bill {
+class Bill implements IBill {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

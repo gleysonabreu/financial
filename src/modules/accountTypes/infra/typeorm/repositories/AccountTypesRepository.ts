@@ -1,9 +1,9 @@
 import { getRepository, Repository } from 'typeorm';
 
+import { IAccountTypesRepository } from '../../../repositories/IAccountTypesRepository';
+import { ICreateAccountTypeDTO } from '../../../useCases/createAccountType/CreateAccountTypeDTO';
+import { IGetAllAccountTypeDTO } from '../../../useCases/getAllAccountType/IGetAllAccountTypeDTO';
 import { AccountType } from '../entities/AccountType';
-import { ICreateAccountTypeDTO } from '../useCases/createAccountType/CreateAccountTypeDTO';
-import { IGetAllAccountTypeDTO } from '../useCases/getAllAccountType/IGetAllAccountTypeDTO';
-import { IAccountTypesRepository } from './IAccountTypesRepository';
 
 class AccountTypesRepository implements IAccountTypesRepository {
   private repository: Repository<AccountType>;

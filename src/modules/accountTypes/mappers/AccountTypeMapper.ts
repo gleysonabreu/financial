@@ -1,4 +1,4 @@
-import { AccountType } from '../entities/AccountType';
+import { AccountType } from '../infra/typeorm/entities/AccountType';
 
 type IResponse = {
   id: string;

@@ -1,4 +1,4 @@
-import { AccountType } from '@modules/accountTypes/entities/AccountType';
+import { IAccountType } from '@modules/accountTypes/DTOS/IAccountType';
 import { IAccountTypesRepository } from '@modules/accountTypes/repositories/IAccountTypesRepository';
 import { injectable, inject } from 'tsyringe';
 import * as yup from 'yup';
@@ -13,7 +13,7 @@ class UpdateAccountTypeUseCase {
     private accountTypesRepository: IAccountTypesRepository,
   ) {}
 
-  async execute({ id, name }: IUpdateAccountTypeDTO): Promise<AccountType> {
+  async execute({ id, name }: IUpdateAccountTypeDTO): Promise<IAccountType> {
     const schema = yup.object().shape({
       id: yup.string().uuid().required(),
       name: yup.string().min(3).required(),

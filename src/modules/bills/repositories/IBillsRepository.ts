@@ -1,13 +1,13 @@
-import { Bill } from '../entities/Bill';
+import { IBill } from '../DTOS/IBill';
 import { ICreateBillDTO } from '../useCases/createBill/ICreateBillDTO';
 import { IGetAllBillDTO } from '../useCases/getAllBill/IGetAllBillDTO';
 
 interface IBillsRepository {
-  create(bill: ICreateBillDTO): Promise<Bill>;
-  findById(id: string): Promise<Bill | undefined>;
-  save(bill: Bill): Promise<Bill>;
-  delete(bill: Bill): Promise<void>;
-  findAll(filters?: IGetAllBillDTO): Promise<Bill[]>;
+  create(bill: ICreateBillDTO): Promise<IBill>;
+  findById(id: string): Promise<IBill | undefined>;
+  save(bill: IBill): Promise<IBill>;
+  delete(bill: IBill): Promise<void>;
+  findAll(filters?: IGetAllBillDTO): Promise<IBill[]>;
 }
 
 export { IBillsRepository };

@@ -1,6 +1,5 @@
-import { AccountType } from '@modules/accountTypes/entities/AccountType';
+import { IAccountType } from '@modules/accountTypes/DTOS/IAccountType';
 import { IAccountTypesRepository } from '@modules/accountTypes/repositories/IAccountTypesRepository';
-import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { inject, injectable } from 'tsyringe';
 import * as yup from 'yup';
 
@@ -14,7 +13,7 @@ class GetOneAccountTypeUseCase {
     private accountTypesRepository: IAccountTypesRepository,
   ) {}
 
-  async execute({ id }: IGetOneAccountType): Promise<AccountType> {
+  async execute({ id }: IGetOneAccountType): Promise<IAccountType> {
     const schema = yup.object().shape({
       id: yup.string().uuid().required(),
     });

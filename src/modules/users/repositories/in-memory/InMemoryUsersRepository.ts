@@ -1,29 +1,30 @@
+import { IUser } from '@modules/users/DTO/IUser';
+import { User } from '@modules/users/infra/typeorm/entities/User';
 import { IGetAllUserDTO } from '@modules/users/useCases/getAllUser/IGetAllUserDTO';
 
-import { User } from '../../entities/User';
 import { ICreateUserDTO } from '../../useCases/createUser/ICreateUserDTO';
 import { IUsersRepository } from '../IUsersRepository';
 
 export class InMemoryUsersRepository implements IUsersRepository {
-  private users: User[] = [];
+  private users: IUser[] = [];
 
-  async findByCpf(cpf: string): Promise<User | undefined> {
+  async findByCpf(cpf: string): Promise<IUser | undefined> {
     return this.users.find(user => user.cpf === cpf);
   }
 
-  async findByPhone(phone: string): Promise<User | undefined> {
+  async findByPhone(phone: string): Promise<IUser | undefined> {
     return this.users.find(user => user.cpf === phone);
   }
 
-  async findByEmail(email: string): Promise<User | undefined> {
+  async findByEmail(email: string): Promise<IUser | undefined> {
     return this.users.find(user => user.email === email);
   }
 
-  async findById(user_id: string): Promise<User | undefined> {
+  async findById(user_id: string): Promise<IUser | undefined> {
     return this.users.find(user => user.id === user_id);
   }
 
-  async create(data: ICreateUserDTO): Promise<User> {
+  async create(data: ICreateUserDTO): Promise<IUser> {
     const user = new User();
     Object.assign(user, {
       ...data,
@@ -37,7 +38,7 @@ export class InMemoryUsersRepository implements IUsersRepository {
     return user;
   }
 
-  async update(user: User): Promise<User> {
+  async update(user: IUser): Promise<IUser> {
     const findElement = this.users.findIndex(us => us.id === user.id);
     this.users[findElement].firstName = user.firstName;
     this.users[findElement].lastName = user.lastName;
@@ -49,7 +50,7 @@ export class InMemoryUsersRepository implements IUsersRepository {
     return user;
   }
 
-  async findAll({ cpf, name }: IGetAllUserDTO): Promise<User[]> {
+  async findAll({ cpf, name }: IGetAllUserDTO): Promise<IUser[]> {
     if (!cpf && !name) {
       return this.users;
     }
@@ -82,7 +83,7 @@ export class InMemoryUsersRepository implements IUsersRepository {
     return allUsers;
   }
 
-  async remove(user: User): Promise<void> {
+  async remove(user: IUser): Promise<void> {
     const userData = this.users.find(userInfo => userInfo.id === user.id);
     this.users.splice(this.users.indexOf(userData));
   }
