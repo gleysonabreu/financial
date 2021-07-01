@@ -1,16 +1,21 @@
 import { IPermission } from '@modules/permissions/DTOS/IPermission';
-import { Permission } from '@modules/permissions/infra/typeorm/entities/Permission';
 import { ICreatePermissionDTO } from '@modules/permissions/useCases/createPermission/ICreatePermissionDTO';
 import { IGetPermissionUserIdAndTypeDTO } from '@modules/permissions/useCases/createPermission/IGetPermissionUserIdAndTypeDTO';
+import { v4 as uuid } from 'uuid';
 
 import { IPermissionsRepository } from '../IPermissionsRepository';
 
 class InMemoryPermissionsRepository implements IPermissionsRepository {
-  private permissions: Permission[] = [];
+  private permissions: IPermission[] = [];
 
   async create(permissionData: ICreatePermissionDTO): Promise<IPermission> {
-    const permission = new Permission();
-    Object.assign(permission, permissionData);
+    const permission = {
+      ...permissionData,
+      id: uuid(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    } as IPermission;
+
     this.permissions.push(permission);
     return permission;
   }

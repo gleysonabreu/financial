@@ -1,6 +1,6 @@
 import { ICreateUserTokenDTO } from '@modules/users/DTO/ICreateUserTokenDTO';
 import { IUserToken } from '@modules/users/DTO/IUserToken';
-import { UserToken } from '@modules/users/infra/typeorm/entities/UserToken';
+import { v4 as uuid } from 'uuid';
 
 import { IUsersTokensRepository } from '../IUsersTokensRepository';
 
@@ -12,13 +12,12 @@ class InMemoryUsersTokensRepository implements IUsersTokensRepository {
     token,
     userId,
   }: ICreateUserTokenDTO): Promise<IUserToken> {
-    const userToken = new UserToken();
-
-    Object.assign(userToken, {
+    const userToken = {
+      id: uuid(),
       expireDate,
       token,
       userId,
-    });
+    } as IUserToken;
 
     this.usersTokens.push(userToken);
     return userToken;

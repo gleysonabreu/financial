@@ -1,6 +1,6 @@
 import { IUser } from '@modules/users/DTO/IUser';
-import { User } from '@modules/users/infra/typeorm/entities/User';
 import { IGetAllUserDTO } from '@modules/users/useCases/getAllUser/IGetAllUserDTO';
+import { v4 as uuid } from 'uuid';
 
 import { ICreateUserDTO } from '../../useCases/createUser/ICreateUserDTO';
 import { IUsersRepository } from '../IUsersRepository';
@@ -25,15 +25,24 @@ export class InMemoryUsersRepository implements IUsersRepository {
   }
 
   async create(data: ICreateUserDTO): Promise<IUser> {
-    const user = new User();
-    Object.assign(user, {
+    const userId = uuid();
+    const user = {
       ...data,
+      id: userId,
+      avatar: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
       permissions: [
         {
+          id: uuid(),
+          userId,
           type: data.permission,
+          createdAt: new Date(),
+          updatedAt: new Date(),
         },
       ],
-    });
+    } as IUser;
+
     this.users.push(user);
     return user;
   }

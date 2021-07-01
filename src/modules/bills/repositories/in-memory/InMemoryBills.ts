@@ -1,16 +1,19 @@
 import { IBill } from '@modules/bills/DTOS/IBill';
-import { Bill } from '@modules/bills/infra/typeorm/entities/Bill';
 import { ICreateBillDTO } from '@modules/bills/useCases/createBill/ICreateBillDTO';
 import { IGetAllBillDTO } from '@modules/bills/useCases/getAllBill/IGetAllBillDTO';
+import { v4 as uuid } from 'uuid';
 
 import { IBillsRepository } from '../IBillsRepository';
 
 class InMemoryBills implements IBillsRepository {
-  private bills: Bill[] = [];
+  private bills: IBill[] = [];
 
   async create(data: ICreateBillDTO): Promise<IBill> {
-    const bill = new Bill();
-    Object.assign(bill, data);
+    const bill = {
+      id: uuid(),
+      ...data,
+    } as IBill;
+
     this.bills.push(bill);
     return bill;
   }

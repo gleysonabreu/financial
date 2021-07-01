@@ -1,20 +1,25 @@
 import { IAccountType } from '@modules/accountTypes/DTOS/IAccountType';
-import { AccountType } from '@modules/accountTypes/infra/typeorm/entities/AccountType';
 import { ICreateAccountTypeDTO } from '@modules/accountTypes/useCases/createAccountType/CreateAccountTypeDTO';
 import { IGetAllAccountTypeDTO } from '@modules/accountTypes/useCases/getAllAccountType/IGetAllAccountTypeDTO';
+import { v4 as uuid } from 'uuid';
 
 import { IAccountTypesRepository } from '../IAccountTypesRepository';
 
 class InMemoryAccountTypesRepository implements IAccountTypesRepository {
-  private accountTypes: AccountType[] = [];
+  private accountTypes: IAccountType[] = [];
 
   async findByName(name: string): Promise<IAccountType | undefined> {
     return this.accountTypes.find(accountType => accountType.name === name);
   }
 
   async create(accountTypeData: ICreateAccountTypeDTO): Promise<IAccountType> {
-    const accountType = new AccountType();
-    Object.assign(accountType, accountTypeData);
+    const accountType = {
+      ...accountTypeData,
+      id: uuid(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    } as IAccountType;
+
     this.accountTypes.push(accountType);
     return accountType;
   }
