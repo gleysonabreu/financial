@@ -1,4 +1,4 @@
-import { AccountType } from '../infra/typeorm/entities/AccountType';
+import { IAccountType } from '../DTOS/IAccountType';
 
 type IResponse = {
   id: string;
@@ -7,11 +7,11 @@ type IResponse = {
   updated_at: Date;
 };
 class AccountTypeMapper {
-  static toMany(accountTypes: AccountType[]): IResponse[] {
+  static toMany(accountTypes: IAccountType[]): IResponse[] {
     return accountTypes.map(accountType => this.toDTO(accountType));
   }
 
-  static toDTO({ id, createdAt, name, updatedAt }: AccountType): IResponse {
+  static toDTO({ id, createdAt, name, updatedAt }: IAccountType): IResponse {
     return {
       id,
       name,

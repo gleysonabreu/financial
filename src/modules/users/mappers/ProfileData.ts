@@ -1,6 +1,4 @@
-import { Permission } from '@modules/permissions/infra/typeorm/entities/Permission';
-
-import { User } from '../infra/typeorm/entities/User';
+import { IUser } from '../DTO/IUser';
 
 interface IResponse {
   id: string;
@@ -24,7 +22,7 @@ interface IResponse {
 }
 
 class ProfileData {
-  static toManyDTO(users: User[]): IResponse[] {
+  static toManyDTO(users: IUser[]): IResponse[] {
     return users.map(user => this.toDTO(user));
   }
 
@@ -49,7 +47,7 @@ class ProfileData {
     permissions,
     createdAt,
     updatedAt,
-  }: User): IResponse {
+  }: IUser): IResponse {
     return {
       id,
       first_name: firstName,
