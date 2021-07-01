@@ -29,10 +29,10 @@ class InMemoryPermissionsRepository implements IPermissionsRepository {
   }
 
   async delete(permission: IPermission): Promise<void> {
-    const removePermission = this.permissions.filter(
-      permissionArray => permissionArray.id !== permission.id,
+    const removePermission = this.permissions.find(
+      onePermission => onePermission.id === permission.id,
     );
-    this.permissions = removePermission;
+    this.permissions.splice(this.permissions.indexOf(removePermission), 1);
   }
 }
 

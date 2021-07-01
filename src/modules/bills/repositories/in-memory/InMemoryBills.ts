@@ -29,8 +29,8 @@ class InMemoryBills implements IBillsRepository {
   }
 
   async delete(billRemove: IBill): Promise<void> {
-    const removedBill = this.bills.filter(bill => bill.id !== billRemove.id);
-    this.bills = removedBill;
+    const removeBill = this.bills.find(bill => bill.id === billRemove.id);
+    this.bills.splice(this.bills.indexOf(removeBill), 1);
   }
 
   async findAll({

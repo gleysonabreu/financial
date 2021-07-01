@@ -24,10 +24,10 @@ class InMemoryAccountTypesRepository implements IAccountTypesRepository {
   }
 
   async delete(accountType: IAccountType): Promise<void> {
-    const removeAccountType = this.accountTypes.filter(
-      type => type.id !== accountType.id,
+    const deleteAccountType = this.accountTypes.find(
+      accountT => accountT.id === accountType.id,
     );
-    this.accountTypes = removeAccountType;
+    this.accountTypes.splice(this.accountTypes.indexOf(deleteAccountType), 1);
   }
 
   async update(accountType: IAccountType): Promise<IAccountType> {
