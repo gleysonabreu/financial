@@ -1,5 +1,6 @@
-import { UsersRepository } from '@modules/users/infra/typeorm/repositories/UsersRepository';
+import { ShowUserProfileUseCase } from '@modules/users/useCases/showUserProfile/ShowUserProfileUseCase';
 import { NextFunction, Request, Response } from 'express';
+import { container } from 'tsyringe';
 
 import { JWTInvalidTokenError } from '@shared/errors/JWTInvalidTokenError';
 import { JWTTokenMissingError } from '@shared/errors/JWTTokenMissingError';
@@ -24,8 +25,8 @@ async function ensureAuthenticated(
     try {
       const { sub: userId, user: userInfo } = (await verify(token)) as IPayload;
 
-      const usersRepository = new UsersRepository();
-      const user = await usersRepository.findById(userId);
+      const getUserAuth = container.resolve(ShowUserProfileUseCase);
+      const user = await getUserAuth.execute(userId);
       if (user) {
         request.user = {
           id: userId,
