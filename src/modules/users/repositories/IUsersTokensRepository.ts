@@ -1,6 +1,6 @@
-import { ICreateUserTokenDTO } from '@modules/users/DTO/ICreateUserTokenDTO';
+import { ICreateUserTokenDTO } from '@modules/users/DTOS/ICreateUserTokenDTO';
 
-import { IUserToken } from '../DTO/IUserToken';
+import { IUserToken } from '../DTOS/IUserToken';
 
 interface IUsersTokensRepository {
   create(userToken: ICreateUserTokenDTO): Promise<IUserToken>;

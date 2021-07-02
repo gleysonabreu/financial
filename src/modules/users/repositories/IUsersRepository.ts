@@ -1,4 +1,4 @@
-import { IUser } from '../DTO/IUser';
+import { IUser } from '../DTOS/IUser';
 import { ICreateUserDTO } from '../useCases/createUser/ICreateUserDTO';
 import { IGetAllUserDTO } from '../useCases/getAllUser/IGetAllUserDTO';
 

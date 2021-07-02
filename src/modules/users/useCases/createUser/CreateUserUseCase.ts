@@ -1,4 +1,4 @@
-import { IUser } from '@modules/users/DTO/IUser';
+import { IUser } from '@modules/users/DTOS/IUser';
 import { User } from '@modules/users/infra/typeorm/entities/User';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import moment from 'moment';

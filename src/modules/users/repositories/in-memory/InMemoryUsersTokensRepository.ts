@@ -1,5 +1,5 @@
-import { ICreateUserTokenDTO } from '@modules/users/DTO/ICreateUserTokenDTO';
-import { IUserToken } from '@modules/users/DTO/IUserToken';
+import { ICreateUserTokenDTO } from '@modules/users/DTOS/ICreateUserTokenDTO';
+import { IUserToken } from '@modules/users/DTOS/IUserToken';
 import { v4 as uuid } from 'uuid';
 
 import { IUsersTokensRepository } from '../IUsersTokensRepository';

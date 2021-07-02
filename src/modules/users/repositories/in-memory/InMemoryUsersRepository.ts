@@ -1,4 +1,4 @@
-import { IUser } from '@modules/users/DTO/IUser';
+import { IUser } from '@modules/users/DTOS/IUser';
 import { IGetAllUserDTO } from '@modules/users/useCases/getAllUser/IGetAllUserDTO';
 import { v4 as uuid } from 'uuid';
 

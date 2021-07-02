@@ -1,5 +1,5 @@
 import { Permission } from '@modules/permissions/infra/typeorm/entities/Permission';
-import { IUser } from '@modules/users/DTO/IUser';
+import { IUser } from '@modules/users/DTOS/IUser';
 import {
   Column,
   CreateDateColumn,

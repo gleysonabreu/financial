@@ -1,4 +1,4 @@
-import { IUser } from '../DTO/IUser';
+import { IUser } from '../DTOS/IUser';
 
 interface IResponse {
   id: string;

@@ -1,4 +1,4 @@
-import { IUser } from '@modules/users/DTO/IUser';
+import { IUser } from '@modules/users/DTOS/IUser';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import moment from 'moment';
 import { inject, injectable } from 'tsyringe';
