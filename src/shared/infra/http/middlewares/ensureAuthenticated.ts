@@ -4,14 +4,7 @@ import { container } from 'tsyringe';
 
 import { JWTInvalidTokenError } from '@shared/errors/JWTInvalidTokenError';
 import { JWTTokenMissingError } from '@shared/errors/JWTTokenMissingError';
-import { verify } from '@shared/services/token';
-
-interface IPayload {
-  user: {
-    roles: string[];
-  };
-  sub: string;
-}
+import { IJwtResponse, verify } from '@shared/services/token';
 
 async function ensureAuthenticated(
   request: Request,
@@ -23,7 +16,9 @@ async function ensureAuthenticated(
   if (authHeader) {
     const [, token] = authHeader.split(' ');
     try {
-      const { sub: userId, user: userInfo } = (await verify(token)) as IPayload;
+      const { sub: userId, user: userInfo } = (await verify(
+        token,
+      )) as IJwtResponse;
 
       const getUserAuth = container.resolve(ShowUserProfileUseCase);
       const user = await getUserAuth.execute(userId);

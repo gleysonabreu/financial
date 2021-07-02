@@ -42,15 +42,15 @@ class AuthenticateUserUseCase {
     }
 
     const permissions = user.permissions.map(permission => permission.type);
-    const token = await sign(
-      {
+    const token = await sign({
+      payload: {
         user: {
           id: user.id,
           roles: permissions,
         },
       },
-      user.id,
-    );
+      sub: user.id,
+    });
 
     return {
       token,

@@ -6,18 +6,30 @@ const signOptions = {
   expiresIn: authConfig.jwt.duration,
 } as SignOptions;
 
-const sign = async (
-  payload: string | object | Buffer,
-  sub: string,
-): Promise<string> => {
+interface IJwt {
+  user: {
+    id: string;
+    roles: string[];
+  };
+}
+interface IJwtRequest {
+  payload: IJwt | string | Buffer;
+  sub: string;
+}
+
+export type IJwtResponse = IJwt & {
+  sub: string;
+};
+
+const sign = async ({ payload, sub }: IJwtRequest): Promise<string> => {
   return jwt.sign(payload, authConfig.jwt.privateKey, {
     ...signOptions,
     subject: sub,
   });
 };
 
-const verify = async (token: string): Promise<string | object> => {
-  return jwt.verify(token, authConfig.jwt.publicKey);
+const verify = async (token: string): Promise<string | IJwtResponse> => {
+  return jwt.verify(token, authConfig.jwt.publicKey) as IJwtResponse | string;
 };
 
 export { sign, verify };
