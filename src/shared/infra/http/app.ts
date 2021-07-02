@@ -12,15 +12,29 @@ import connection from '../typeorm/connection';
 import '../../container';
 import { router } from './routes';
 
-connection();
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use(
-  `/${process.env.STORAGE_FOLDER}`,
-  express.static(`${upload.tmpFolder}/${process.env.STORAGE_FOLDER}`),
-);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-app.use(router);
-app.use(HandleAppError);
-export { app };
+class App {
+  app: express.Application;
+  constructor() {
+    connection();
+    this.app = express();
+    this.middlewares();
+    this.routes();
+  }
+
+  middlewares(): void {
+    this.app.use(cors());
+    this.app.use(express.json());
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+    this.app.use(
+      `/${process.env.STORAGE_FOLDER}`,
+      express.static(`${upload.tmpFolder}/${process.env.STORAGE_FOLDER}`),
+    );
+  }
+
+  routes(): void {
+    this.app.use(router);
+    this.app.use(HandleAppError);
+  }
+}
+
+export default new App().app;
